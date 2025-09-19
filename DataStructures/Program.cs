@@ -9,8 +9,13 @@ namespace DataStructures
             SLinkedList list = new SLinkedList();
             list.AddFirst("first");
             list.AddFirst("second");
-            list.AddFirst("three");
-            
+            //поменял three на third
+            list.AddFirst("third");
+            list.AddFirst("fourth");
+            //добавляем данные в конец
+            list.AddLast("fifth");
+            list.AddLast("sixth");
+
             foreach (var i in list)
                 Console.WriteLine(i);
         }

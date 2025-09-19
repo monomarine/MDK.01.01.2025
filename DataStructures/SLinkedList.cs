@@ -56,8 +56,26 @@ namespace LinkedList
             }
             else
             {
-                newNode.Next = _head;
+                newNode.Next = _head; //новый список указывает на начало, тем самым ставя его первым
                 _head = newNode;
+            }
+            _count++;
+        }
+
+        public void AddLast(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("данные пустые");
+            Node newNode = new Node(text);
+            if (_tail == null)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else
+            {
+                _tail.Next = newNode; //а здесь конец указывает на новый список, тем самым ставя его в конец
+                _tail = newNode;
             }
             _count++;
         }
