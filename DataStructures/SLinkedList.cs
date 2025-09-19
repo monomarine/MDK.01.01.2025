@@ -72,15 +72,43 @@ namespace LinkedList
             else
             {
                 Node current = _head;
-                while(current.Next != null)
+                while (current.Next != null)
                 {
-                    if(current.Data == text)
+                    if (current.Data == text)
                     {
                         newNode.Next = current.Next;
                         current.Next = newNode;
                     }
                     current = current.Next;
                 }
+            }
+        }
+
+        public void AddLast(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("Данные пусты!");
+
+            Node newNode = new Node(text);
+
+            if (_head == null)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+
+            else
+            {
+                Node current = _head;
+                while (current.Next != null)
+                {
+                    current = current.Next;
+                    _count++;
+                }
+
+                _tail = newNode;
+                current.Next = _tail;
+                newNode.Next = null;
             }
         }
 
@@ -99,5 +127,7 @@ namespace LinkedList
         {
             return GetEnumerator();
         }
+
+
     }
 }

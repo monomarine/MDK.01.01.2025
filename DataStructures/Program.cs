@@ -8,7 +8,7 @@ namespace DataStructures
         {
             SLinkedList list = new SLinkedList();
             list.AddFirst("first");
-            list.AddFirst("second");
+            list.AddLast("second");
             list.AddFirst("three");
             
             foreach (var i in list)
