@@ -99,17 +99,11 @@ namespace LinkedList
 
             else
             {
-                Node current = _head;
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                    _count++;
-                }
-
+                _tail.Next = newNode;
                 _tail = newNode;
-                current.Next = _tail;
-                newNode.Next = null;
             }
+
+            _count++;
         }
 
         public IEnumerator<string> GetEnumerator()

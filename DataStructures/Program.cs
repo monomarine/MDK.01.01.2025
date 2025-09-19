@@ -10,6 +10,8 @@ namespace DataStructures
             list.AddFirst("first");
             list.AddLast("second");
             list.AddFirst("three");
+
+            list.AddLast("seventh");
             
             foreach (var i in list)
                 Console.WriteLine(i);
