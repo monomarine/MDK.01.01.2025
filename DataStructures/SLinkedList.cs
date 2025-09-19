@@ -61,6 +61,22 @@ namespace LinkedList
             }
             _count++;
         }
+        public void AddEnd(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("данные пустые");
+            Node newNode = new Node(text);
+            if (_tail == null)
+            {
+                _tail = newNode;
+                _head = newNode;
+            }
+            else { 
+                _tail.Next = newNode;
+                _tail = newNode;
+            }
+            _count++;
+        }
 
         public void InsertAfter(string existingText, string text)
         {
