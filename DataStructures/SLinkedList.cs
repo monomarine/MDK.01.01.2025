@@ -28,10 +28,9 @@ namespace LinkedList
          * 
          * получить первый элемент
          * получить последний элемент
-         * 
-         * вставить элемент в начало списка !
-         * добавить элемент в конец списка -----самостоятельно
-         * добавить элемент после другого !
+         
+         * добавить элемент в конец списка -----самостоятельно 
+     
          * 
          * удалить первый элемент
          * удалить последний элемент
@@ -83,6 +82,39 @@ namespace LinkedList
                 }
             }
         }
+
+        public void AddLast(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("данные пустые");
+            Node newNode = new Node(text);
+            if (_head == null)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else
+            {
+                Node current = _head;
+                while (current.Next != null) 
+                {
+                    
+                    current = current.Next;
+                    _count++;
+
+                }
+                
+                _tail = newNode; 
+                current.Next = _tail;
+                newNode.Next = null;
+            }
+            
+        }
+
+
+
+
+
 
         public IEnumerator<string> GetEnumerator()
         {
