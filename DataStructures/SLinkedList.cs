@@ -88,24 +88,15 @@ namespace LinkedList
             if (text == null)
                 throw new ArgumentException("данные пустые");
             Node newNode = new Node(text);
-            if (_head == null)
+            if (_tail == null)
             {
                 _head = newNode;
                 _tail = newNode;
             }
             else
             {
-                Node current = _head;
-                while (current.Next != null) 
-                {
-                    
-                    current = current.Next;
-                    _count++;
-
-                }
                 
-                _tail = newNode; 
-                current.Next = _tail;
+                _tail.Next =newNode;
                 newNode.Next = null;
             }
             
