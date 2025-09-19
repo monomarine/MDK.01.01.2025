@@ -43,6 +43,26 @@ namespace LinkedList
          * перевернуть
          * 
          */
+        public void AddLast(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("данные пустые");
+
+            Node newNode = new Node(text);
+
+            if (IsEmpty)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else
+            {
+                _tail.Next = newNode;
+                _tail = newNode;
+            }
+            _count++;
+        }
+
 
         public void AddFirst(string text)
         {
