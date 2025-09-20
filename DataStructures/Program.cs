@@ -9,8 +9,12 @@ namespace DataStructures
             SLinkedList list = new SLinkedList();
             list.AddFirst("first");
             list.AddFirst("second");
-            list.AddFirst("three");
-            
+            list.AddFirst("third");
+            list.AddLast("zeroth");
+            list.AddLast("minus first");
+            list.AddLast("minus second");
+
+
             foreach (var i in list)
                 Console.WriteLine(i);
         }

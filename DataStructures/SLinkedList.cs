@@ -49,7 +49,7 @@ namespace LinkedList
             if (text == null)
                 throw new ArgumentException("данные пустые");
             Node newNode = new Node(text);
-            if (_head == null)
+            if (IsEmpty)
             {
                 _head = newNode;
                 _tail = newNode;
@@ -58,6 +58,26 @@ namespace LinkedList
             {
                 newNode.Next = _head;
                 _head = newNode;
+            }
+            _count++;
+        }
+
+        public void AddLast(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("Данные пустые!");
+
+            Node newNode = new Node(text);
+
+            if (IsEmpty)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else
+            {
+                _tail.Next = newNode;
+                _tail = newNode;
             }
             _count++;
         }
@@ -83,7 +103,7 @@ namespace LinkedList
                 }
             }
         }
-
+       
         public IEnumerator<string> GetEnumerator()
         {
             Node current = _head;
