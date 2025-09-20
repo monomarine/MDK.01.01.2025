@@ -62,6 +62,24 @@ namespace LinkedList
             _count++;
         }
 
+        public void AddTail(string text)
+        {
+            if (text == null)
+                throw new ArgumentException("данные пустые");
+            Node newNode = new Node(text);
+            if (IsEmpty)
+            {
+                _tail = newNode;
+                _head = newNode;
+            }
+            else
+            {
+                newNode.Next = _tail;
+                _tail = newNode;
+            }
+            _count++;
+        }
+
         public void InsertAfter(string existingText, string text)
         {
             if (existingText == null || text == null)

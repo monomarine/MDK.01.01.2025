@@ -10,9 +10,11 @@ namespace DataStructures
             list.AddFirst("first");
             list.AddFirst("second");
             list.AddFirst("three");
+            list.AddTail("zero");
             
             foreach (var i in list)
                 Console.WriteLine(i);
+            Console.ReadLine();
         }
     }
 }
