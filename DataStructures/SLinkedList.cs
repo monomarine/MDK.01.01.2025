@@ -74,7 +74,7 @@ namespace LinkedList
             }
             else
             {
-                newNode.Next = _tail;
+                _tail.Next = newNode;
                 _tail = newNode;
             }
             _count++;
