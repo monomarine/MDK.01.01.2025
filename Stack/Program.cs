@@ -1,4 +1,4 @@
-﻿namespace Stack
+namespace Stack
 {
     internal class Program
     {
@@ -30,5 +30,4 @@
 				Console.WriteLine(item);
 			}
 		}
-    }
 }

@@ -8,7 +8,7 @@ namespace Stack
 {
 #pragma warning disable
 
-    internal class Node //узел списка
+    internal class Node //узел стека
     {
         public string Data { get; set; }
         public Node Next { get; set; }
