@@ -27,11 +27,11 @@ namespace LinkedList
          * функционал:
          * 
          * получить первый элемент !
-         * получить последний элемент - сам
+         * получить последний элемент - сам сделал!
          * 
-         * удалить первый элемент - сам
+         * удалить первый элемент - сам сделал!
          * удалить последний элемент !
-         * удалить элемент по его данным - сам
+         * удалить элемент по его данным - сам сделал!
          * 
          * проверить наличие элемента !
          * перевернуть!
@@ -42,14 +42,14 @@ namespace LinkedList
         {
             if (Count <= 1)
                 throw new ArgumentException("количество элементов не достаточно для реверса");
-            
+
             Node prev = null;
             Node current = _head;
             Node next = null;
 
             _tail = _head;
 
-            while(current != null)
+            while (current != null)
             {
                 next = current.Next;
                 current.Next = prev;
@@ -60,14 +60,14 @@ namespace LinkedList
         }
         public void RemoveLast()
         {
-            if(IsEmpty)
+            if (IsEmpty)
                 throw new ArgumentNullException("список пуст");
-            else if(Count == 1)
+            else if (Count == 1)
                 Clear();
             else
             {
                 Node current = _head;
-                while(current.Next != _tail)
+                while (current.Next != _tail)
                 {
                     current = current.Next;
                 }
@@ -80,6 +80,60 @@ namespace LinkedList
 
         }
 
+        public void RemoveFirst()
+        {
+            if (IsEmpty)
+                throw new ArgumentNullException("список пуст");
+            else if (Count == 1)
+                Clear();
+            else
+            {
+                Node newHead = _head.Next;
+                _head = null;
+                _head = newHead;
+                _count--;
+            }
+        }
+        public void RemoveItem(string removeText)
+        {
+            if (IsEmpty)
+                throw new ArgumentNullException("список пуст");
+            else if (Count == 1)
+                Clear();
+
+            else
+            {
+                Node last = null;
+                Node current = _head;
+                while (current != null)
+                {
+                    if (current.Data == removeText)
+                    {
+                        if(last == null)
+                        {
+                            RemoveFirst();
+                        }
+                        else
+                        {
+                            last.Next = current.Next;
+                            if(current == _tail)
+                            {
+                                _tail = last;
+                            }
+                            _count--;
+                            current = null;
+
+                        }
+                        break;
+                    }
+                    last = current;
+                    current = current.Next;
+                }
+                _count--;
+
+            }
+        }
+
         public string GetFirst()
         {
             if (IsEmpty)
@@ -88,14 +142,22 @@ namespace LinkedList
                 return _head.Data;
         }
 
+        public string GetLast()
+        {
+            if (IsEmpty)
+                throw new ArgumentNullException("список пуст");
+            else
+                return _tail.Data;
+        }
+
         public bool Contains(string item)
         {
-            if(IsEmpty)
+            if (IsEmpty)
                 throw new ArgumentNullException("список пуст");
             else
             {
                 Node current = _head;
-                while(current.Next != null)
+                while (current.Next != null)
                 {
                     if (current.Data == item)
                     {
@@ -166,7 +228,7 @@ namespace LinkedList
         public IEnumerator<string> GetEnumerator()
         {
             Node current = _head;
-            while(current != null)
+            while (current != null)
             {
 
                 yield return current.Data;
