@@ -16,6 +16,8 @@ namespace DataStructures
             foreach (var i in list)
                 Console.WriteLine(i);
 
+           /// hhhhh
+
             list.Reverse();
 
                  foreach (var i in list)
