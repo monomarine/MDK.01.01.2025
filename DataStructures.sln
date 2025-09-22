@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedList", "DataStructures\LinkedList.csproj", "{66956C82-8D45-4CC1-A3FA-53FC6CD64058}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LinearStructures", "LinearStructures", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stack", "Stack\Stack.csproj", "{C35467B8-60D2-45C3-BA95-0D8675F84CF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +19,17 @@ Global
 		{66956C82-8D45-4CC1-A3FA-53FC6CD64058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66956C82-8D45-4CC1-A3FA-53FC6CD64058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66956C82-8D45-4CC1-A3FA-53FC6CD64058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C35467B8-60D2-45C3-BA95-0D8675F84CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35467B8-60D2-45C3-BA95-0D8675F84CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35467B8-60D2-45C3-BA95-0D8675F84CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35467B8-60D2-45C3-BA95-0D8675F84CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{66956C82-8D45-4CC1-A3FA-53FC6CD64058} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
+		{C35467B8-60D2-45C3-BA95-0D8675F84CF2} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A512C77-FEA7-492B-9D15-52E88AD20230}

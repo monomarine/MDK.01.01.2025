@@ -1,10 +1,40 @@
-﻿namespace DataStructures
+﻿using LinkedList;
+
+namespace DataStructures
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            SLinkedList list = new SLinkedList();
+            list.AddFirst("1");
+            list.AddFirst("2");
+            list.AddFirst("3");
+
+            list.InsertAfter("3", "66");
+
+            foreach (var i in list)
+                Console.WriteLine(i);
+
+            list.Reverse();
+
+            foreach (var i in list)
+                Console.WriteLine(i);
+
+            list.GetLast();
+
+            foreach (var i in list)
+                Console.WriteLine(i);
+
+            list.RemoveFirst();
+
+            foreach (var i in list)
+                Console.WriteLine(i);
+
+            list.Remove("66");
+
+            foreach (var i in list)
+                Console.WriteLine(i);
         }
     }
 }
