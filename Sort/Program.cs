@@ -1,7 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Net.WebSockets;
-
-namespace Search
+﻿namespace Sort
 {
     internal class Program
     {
@@ -9,19 +6,15 @@ namespace Search
         {
             
         }
-
-        static int[] GetArray(int count, int key)
+        static int[] GetArray(int count)
         {
             int[] array = new int[count];
             Random rand = new Random();
             for (int i = 0; i < count; i++)
             {
-                array[i] = rand.Next(0, key);
+                array[i] = rand.Next();
             }
-            array[count - 1] = key;
-            Array.Sort(array);
             return array;
         }
-       
     }
 }
