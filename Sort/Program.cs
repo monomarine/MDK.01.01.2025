@@ -1,4 +1,6 @@
-﻿namespace Sort
+﻿using System.Diagnostics;
+
+namespace Sort
 {
     internal class Program
     {
