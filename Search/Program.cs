@@ -4,8 +4,19 @@
     {
         static void Main(string[] args)
         {
-            
-        }
+            while (true)
+            {
+                int maxValue = 100;
+                int key = 100;
+                int[] array = GetArray(100, maxValue);
+                Array.Sort(array);
+                Console.WriteLine("Линейный: " + Search.LinearSearch(key, array));
+                Console.WriteLine("Итеративный: " + Search.IterativeBinarySearch(key, array));
+                Console.WriteLine("Интерполяционный: " + Search.InterpolateSearch(key, array));
+                Console.WriteLine(new string('=', 20));
+                Console.ReadKey();
+            }
+		}
 
         static int[] GetArray(int count, int key)
         {
