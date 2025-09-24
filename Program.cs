@@ -1,57 +1,84 @@
-﻿using System.Collections.Immutable;
-using System.Net.WebSockets;
+﻿using System.Diagnostics;
 
-namespace Search
+namespace Sort
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            int key = 64655;
-            int[] sizes = { 100, 100000, 3000000 };
+                TestAllAlgorithms(100);
+                TestAllAlgorithms(1000);
+                TestAllAlgorithms(300000);
 
-            Console.WriteLine("КЛЮЧ В КОНЦЕ ПОСЛЕДОВАТЕЛЬНОСТИ");
-            foreach (int size in sizes)
+            static void TestAllAlgorithms(int size)
             {
-                Console.WriteLine($"\n размер массива: {size}");
-                int[] data = GetArray(size, key, true);
-                Search.LinearSearch(key, data);
-                Search.IterativeBinarySearch(key, data);
-                Search.InterpolateSearch(key, data);
+                int[] array = GetArray(size);
+                Console.WriteLine($" Размер массива: {size}");
+
+                int[] copy = (int[])array.Clone();
+                Stopwatch timer = new Stopwatch();
+                Sort.ResetStepCount();
+                timer.Start();
+                Sort.BubbleSort(ref copy);
+                timer.Stop();
+                Console.WriteLine($"BubbleSort: шаги = {Sort.StepCount}, время = {timer.ElapsedMilliseconds} мс");
+
+                copy = (int[])array.Clone();
+                Sort.ResetStepCount();
+                timer.Restart();
+                Sort.SelectionSort(ref copy);
+                timer.Stop();
+                Console.WriteLine($"SelectionSort: шаги = {Sort.StepCount}, время = {timer.ElapsedMilliseconds} мс");
+
+                copy = (int[])array.Clone();
+                Sort.ResetStepCount();
+                timer.Restart();
+                Sort.InsertionSort(ref copy);
+                timer.Stop();
+                Console.WriteLine($"InsertionSort: шаги = {Sort.StepCount}, время = {timer.ElapsedMilliseconds} мс");
+
+                copy = (int[])array.Clone();
+                Sort.ResetStepCount();
+                timer.Restart();
+                Sort.QuickSort(copy);
+                timer.Stop();
+                Console.WriteLine($"QuickSort: шаги = {Sort.StepCount}, время = {timer.ElapsedMilliseconds} мс");
+
+                copy = (int[])array.Clone();
+                Sort.ResetStepCount();
+                timer.Restart();
+                Sort.MergeSort(copy);
+                timer.Stop();
+                Console.WriteLine($"MergeSort: шаги = {Sort.StepCount}, время = {timer.ElapsedMilliseconds} мс");
             }
 
-            Console.WriteLine("\n КЛЮЧ В СЛУЧЙНОМ МЕСТЕ ПОСЛЕДОВАТЕЛЬНОСТИ");
-            foreach (int size in sizes)
-            {
-                Console.WriteLine($"\n размер массива: {size}");
-                int[] data = GetArray(size, key, false);
-                Search.LinearSearch(key, data);
-                Search.IterativeBinarySearch(key, data);
-                Search.InterpolateSearch(key, data);
-            }
+           int[] array = GetArray(10000);
+           // Console.WriteLine("до сортировки:");
+
+            /*foreach (int i in array) 
+                Console.Write(i+" ");*/
+
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            Sort.QuickSort( array);
+            timer.Stop();
+
+          //  Console.WriteLine("\nпосле сортировки:");
+
+            /*foreach (int i in array)
+                Console.Write(i + " ");*/
+
+            Console.WriteLine("затраченное время на сортировку: " + timer.ElapsedMilliseconds);
         }
-
-        static int[] GetArray(int count, int key, bool keyAtEnd = true)
+        static int[] GetArray(int count)
         {
             int[] array = new int[count];
             Random rand = new Random();
             for (int i = 0; i < count; i++)
             {
-                array[i] = rand.Next(0, key);
+                array[i] = rand.Next();
             }
-            if (keyAtEnd)
-            {
-                array[count - 1] = key;
-            }
-            else
-            {
-                int randomIndex = rand.Next(0, count);
-                array[randomIndex] = key;
-            }
-
-            Array.Sort(array);
             return array;
         }
-       
     }
 }
