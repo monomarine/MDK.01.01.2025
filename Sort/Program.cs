@@ -18,7 +18,7 @@
             Random rand = new Random();
             for (int i = 0; i < count; i++)
             {
-                array[i] = rand.Next(0, maxValue);
+                array[i] = rand.Next();
             }
             return array;
         }
