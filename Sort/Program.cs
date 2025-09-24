@@ -1,0 +1,20 @@
+﻿namespace Sort
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            
+        }
+        static int[] GetArray(int count)
+        {
+            int[] array = new int[count];
+            Random rand = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                array[i] = rand.Next();
+            }
+            return array;
+        }
+    }
+}
