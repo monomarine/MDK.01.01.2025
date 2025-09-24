@@ -8,124 +8,147 @@ namespace Sort
 {
     internal class Sort
     {
-        public static void BubbleSort(ref int[] data)
+        public static int BubbleSort(ref int[] data)
         {
+            int steps = 0;
             for (int i = 0; i < data.Length - 1; i++)
             {
                 for (int j = 0; j < data.Length - i - 1; j++)
                 {
+
                     if (data[j] > data[j + 1])
                     {
                         int temp = data[j];
                         data[j] = data[j + 1];
                         data[j + 1] = temp;
+                        steps++;
                     }
+
                 }
             }
+            return steps;
 
         }
 
-        public static void SelectionSort(ref int[] data)
+        public static int SelectionSort(ref int[] data)
         {
-            for( int i = 0; i < data.Length - 1; i++)
+            int steps = 0;
+            for (int i = 0; i < data.Length - 1; i++)
             {
                 int minInd = i; //предполагаем что текущий элемент - минимальный
-                for(int j = i + 1; j < data.Length; j++)
+                for (int j = i + 1; j < data.Length; j++)
                 {
                     //если в оставшемся диапазоне встречаем значение меньще текущего
-                    if(data[j] < data[minInd])
+                    if (data[j] < data[minInd])
+                    {
+
                         minInd = j;//то значение индекса минимального значения меняем
+                    }
                 }
                 //если нашли что то меньше текущего - то меняем значения местами
-                if(minInd != i)
+                if (minInd != i)
                 {
+                    steps++;
                     int temp = data[i];
                     data[i] = data[minInd];
                     data[minInd] = temp;
+
                 }
             }
+            return steps;
         }
 
-        public static void InsertionSort(ref int[] data)
+        public static int InsertionSort(ref int[] data)
         {
-            for(int i =  1; i < data.Length; i++)
+            int steps = 0;
+            for (int i = 1; i < data.Length; i++)
             {
                 int key = data[i];
                 int j = i - 1;
 
-                while(j >= 0 && data[j] > key)
+                while (j >= 0 && data[j] > key)
                 {
-                    data[j+1] = data[j];
+                    data[j + 1] = data[j];
                     j--;
                 }
+                if (j >= 0) steps++;
                 data[j + 1] = key;
             }
+            return steps;
         }
-       
+
         #region QuickSort
-        public static void QuickSort(int[] data)=>
-            QuickSortReqursive(data, 0, data.Length - 1);
-        
-        private static void QuickSortReqursive(int[] data, int start, int end)
+        public static int QuickSort(int[] data)
         {
-            if(start < end)
+            int steps = 0;
+            QuickSortReqursive(data, 0, data.Length - 1, ref steps);
+            return steps;
+        }
+
+
+        private static void QuickSortReqursive(int[] data, int start, int end, ref int steps)
+        {
+            if (start < end)
             {
-                int pivot = GetPivotIndex(data, start, end);
-                QuickSortReqursive(data, start, pivot -1);
-                QuickSortReqursive(data, pivot + 1, end);
+                int pivot = GetPivotIndex(data, start, end, ref steps);
+                QuickSortReqursive(data, start, pivot - 1, ref steps);
+                QuickSortReqursive(data, pivot + 1, end, ref steps);
             }
         }
 
-        private static int GetPivotIndex(int[] data, int start, int end)
+        private static int GetPivotIndex(int[] data, int start, int end, ref int steps)
         {
             int middle = start + (end - start) / 2;
             int pivotValue = data[middle];
-            Swap(data, middle, end); //временно опорную точку переместить в конец
+            Swap(data, middle, end, ref steps); //временно опорную точку переместить в конец
 
             int i = start; //предполагаем что первый элемент больше опорного
-            for( int j = start; j < end; j++ )
+            for (int j = start; j < end; j++)
             {
-                if (data[j] <= pivotValue )
+                if (data[j] <= pivotValue)
                 {
-                    Swap(data, i, j);
+                    Swap(data, i, j, ref steps);
                     i++;
                 }
             }
             //перезаписываем опорную точку на нужную позицию
-            Swap(data, i, end);
+            Swap(data, i, end, ref steps);
             return i;
         }
 
-        private static void Swap(int[] data, int pos1, int pos2)
+        private static void Swap(int[] data, int pos1, int pos2, ref int steps)
         {
             int temp = data[pos1];
             data[pos1] = data[pos2];
             data[pos2] = temp;
+            steps++;
         }
         #endregion
 
         #region MergeSort
 
-        public static void MergeSort(int[] data)
+        public static int MergeSort(int[] data)
         {
-            if (data.Length == 0) return;
+            if (data.Length == 0) return 0;
+            int steps = 0;
             int[] temp = new int[data.Length];
-            MergeSortRecursive(data, 0, data.Length-1, temp);
+            MergeSortRecursive(data, 0, data.Length - 1, temp, ref steps);
+            return steps;
         }
-        private static void MergeSortRecursive(int[] data, int start, int end, int[] temp)
+        private static void MergeSortRecursive(int[] data, int start, int end, int[] temp, ref int steps)
         {
-            if(start < end)
+            if (start < end)
             {
-                int middle = start + (end-start) / 2;   
+                int middle = start + (end - start) / 2;
 
-                MergeSortRecursive(data, start, middle, temp);
-                MergeSortRecursive(data, middle+1, end, temp);
+                MergeSortRecursive(data, start, middle, temp, ref steps);
+                MergeSortRecursive(data, middle + 1, end, temp, ref steps);
 
-                Merge(data, start, middle, end, temp);
+                Merge(data, start, middle, end, temp, ref steps);
             }
         }
 
-        private static void Merge(int[] data, int start, int  middle, int end, int[] temp)
+        private static void Merge(int[] data, int start, int middle, int end, int[] temp, ref int steps)
         {
             int i = start; //начало левого подмассива
             int j = middle + 1; //начало правого подпассива
@@ -136,31 +159,36 @@ namespace Sort
                 if (data[i] <= data[j])
                 {
                     temp[k] = data[i];
+                    steps++;
                     i++;
                 }
                 else
                 {
                     temp[k] = data[j];
+                    steps++;
                     j++;
                 }
                 k++;
             }
-            while(i <= middle)
+            while (i <= middle)
             {
                 temp[k] = data[i];
+                steps++;
                 i++;
                 k++;
 
             }
-            while(j <= end)
+            while (j <= end)
             {
                 temp[k] = data[j];
+                steps++;
                 j++;
                 k++;
             }
-            for(k = start; k <= end; k++)
+            for (k = start; k <= end; k++)
             {
                 data[k] = temp[k];
+                steps++;
             }
         }
 
