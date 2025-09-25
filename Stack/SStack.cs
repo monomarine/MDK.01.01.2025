@@ -23,7 +23,7 @@ namespace Stack
         /*
          * добавление элемента в стек !
          * извлечение элемента из стека !
-         * просмотр верхнего элемента - самостоятельно
+         * просмотр верхнего элемента - самостоятельно сделал!
          * проверка на пустоту !
          * вернуть размер стека!
          * очистить стека !
@@ -46,6 +46,14 @@ namespace Stack
             string data = _top.Data;
             _top = _top.Next;
             _count--;
+            return data;
+        }
+
+        public string First()
+        {
+            if (IsEmpty)
+                throw new ArgumentNullException("список пуст");
+            string data = _top.Data;
             return data;
         }
         public string Peek()
