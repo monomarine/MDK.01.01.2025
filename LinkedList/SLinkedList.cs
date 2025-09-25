@@ -23,20 +23,64 @@ namespace LinkedList
             _tail = null;
             _count = 0;
         }
-        /*
-         * функционал:
-         * 
-         * получить первый элемент !
-         * получить последний элемент - сам
-         * 
-         * удалить первый элемент - сам
-         * удалить последний элемент !
-         * удалить элемент по его данным - сам
-         * 
-         * проверить наличие элемента !
-         * перевернуть!
-         * 
-         */
+        //получение последнего эмелента
+        public string GetLast() 
+        {
+            if (IsEmpty)
+                throw new InvalidOperationException("список пуст");
+            return _tail.Data;
+        }
+
+        //удалить первый эл
+
+        public void RemoveFirst()
+        {
+            if (IsEmpty)
+                throw new InvalidOperationException("список пуст");
+
+            if (Count == 1)
+            {
+                Clear();
+            }
+            else 
+            {
+                _head = _head.Next;
+                _count--;
+            }
+        }
+
+        //Удалить элемент по его данным
+
+        public bool Remove(string item)
+        {
+            if (IsEmpty)
+                throw new InvalidOperationException("список пуст");
+            if (item == null)
+                throw new ArgumentNullException(nameof(item), "Данные не могут быть null");
+            if (_head.Data == item)
+            {
+                RemoveFirst();
+                return true;
+            }
+
+            Node current = _head;
+            while (current.Next != null) 
+            {
+                if (current.Next.Data == item)
+                {
+                    if (current.Next == _tail)
+                    {
+                        _tail = current;
+                    }
+
+                    current.Next = current.Next.Next;
+                    _count--;
+                    return true;
+                }
+                current = current.Next;
+            }
+            return false;
+        }
 
         public void Reverse()
         {
