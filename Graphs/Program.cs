@@ -26,7 +26,7 @@ namespace Graph
             Console.WriteLine($"Самый общительный студент: {mostSociable.FullName}");
 
             graph.Depht();
-            //абракадабра
+            Console.WriteLine("\nабракадабра");
         }
     }
 }
