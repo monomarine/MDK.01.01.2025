@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Graphs
 {
-    internal class GraphByList
+    internal class GraphByList 
     {
         private Node root; //самый первый узел добавленный в граф
         private HashSet<Node> vector;
@@ -16,11 +17,15 @@ namespace Graphs
         {
             this.root = new Node(rootValue);
         }
+        public GraphByList(Student student)
+        {
+            this.root = new Node(student);
+        }
 
         public Node AddNode(string value, Node parent = null)
         {
             Node newNode = new Node(value);
-            if(parent == null)
+            if (parent == null)
             {
                 newNode.Neighbors.Add(root);
                 root.Neighbors.Add(newNode);
@@ -32,7 +37,57 @@ namespace Graphs
             }
             return newNode;
         }
+        public Node AddNode(Student student, Node parent = null)
+        {
+            Node newNode = new Node(student);
+            if (parent == null)
+            {
+                newNode.Neighbors.Add(root);
+                root.Neighbors.Add(newNode);
+            }
+            else
+            {
+                newNode.Neighbors.Add(parent);
+                parent.Neighbors.Add(newNode);
+            }
+            return newNode;
+        }
+        public double AccountGrades()
+        {
+            if (root == null) return 0;
 
+            vector = new HashSet<Node>();
+            return AccountGradesRecursive(root);
+        }
+        public double AccountGradesRecursive(Node startNode)
+        {
+            if (startNode == null || vector.Contains(startNode)) return 0;
+
+            vector.Add(startNode);
+
+            double sum = 0;
+            int count = 0;
+
+       
+            if (startNode.Student != null)
+            {
+                sum += startNode.Student.AverageGrades;
+                count++;
+            }
+
+            foreach (Node neighbor in startNode.Neighbors)
+            {
+                var result = AccountGradesRecursive(neighbor);
+                if (result > 0) 
+                {
+                    sum += result;
+                    count++;
+                }
+            }
+
+            return count > 0 ? sum / count : 0;
+        }
+    
         public void RemoveNode(Node node)
         {
             if (node == null) return;
@@ -46,7 +101,7 @@ namespace Graphs
         #region ОбходВГлубину
         private void DephtRecursive(Node startNode)
         {
-            if(startNode == null || vector.Contains(startNode)) return; //базовый случа й
+            if(startNode == null || vector.Contains(startNode)) return; //базовый случай
             vector.Add(startNode);
             Console.WriteLine(startNode);
             foreach (Node child in startNode.Neighbors)
@@ -89,7 +144,23 @@ namespace Graphs
         public void AddEdge(Node n1, Node n2)
         {
             if(n1 == null || n2 == null) return;
-            if(!n1.Neighbors.Contains(n2))
+            if (n1 == null)
+            {
+                if (!root.Neighbors.Contains(n2))
+                    root.Neighbors.Add(n2);
+                if (!n2.Neighbors.Contains(root))
+                    n2.Neighbors.Add(root);
+                return;
+            }
+            if (n2 == null)
+            {
+                if (!root.Neighbors.Contains(n1))
+                    root.Neighbors.Add(n1);
+                if (!n1.Neighbors.Contains(root))
+                    n1.Neighbors.Add(root);
+                return;
+            }
+            if (!n1.Neighbors.Contains(n2))
                 n1.Neighbors.Add(n2);
             if(!n2.Neighbors.Contains(n1))
                 n2.Neighbors.Add(n1);
@@ -122,6 +193,34 @@ namespace Graphs
         {
             vector = new HashSet<Node>() ;
             return FindNodeRecursive(findValue, startNode);
+        }
+        public Student FindMostSociable()
+        {
+            Node maxNode = root;
+            var visited = new HashSet<Node>();
+            var queue = new Queue<Node>();
+
+            queue.Enqueue(root);
+            visited.Add(root);
+
+            while (queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+
+                if (current.Student != null && current.Neighbors.Count > maxNode.Neighbors.Count)
+                    maxNode = current;
+
+                foreach (var neighbor in current.Neighbors)
+                {
+                    if (!visited.Contains(neighbor))
+                    {
+                        visited.Add(neighbor);
+                        queue.Enqueue(neighbor);
+                    }
+                }
+            }
+
+            return maxNode.Student;
         }
 
     }
