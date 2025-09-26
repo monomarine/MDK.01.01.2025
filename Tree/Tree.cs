@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Tree
 {
@@ -17,43 +18,55 @@ namespace Tree
 
         public Node CreateBalancedTree(int nodeCount)
         {
-            string text;
-            Node root;
-            if (nodeCount == 0) //базовый случай для остановки рекурсии
-                root = null;
-            else
-            {
-                Console.WriteLine("введите значения узла");
-                text = Console.ReadLine();
-                root = new Node(text);
-                root.Left = CreateBalancedTree(nodeCount /  2);
-                root.Right = CreateBalancedTree(nodeCount - nodeCount / 2 - 1); ;
-            }
+            if (nodeCount == 0)
+                return null;
+
+            Console.WriteLine("Введите имя человека:");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Введите год рождения:");
+            int year = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите месяц рождения:");
+            int month = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите день рождения:");
+            int day = int.Parse(Console.ReadLine());
+
+            People people = new People(name, new DateOnly(year, month, day));
+            Node root = new Node(people);
+
+            root.Left = CreateBalancedTree(nodeCount / 2);
+            root.Right = CreateBalancedTree(nodeCount - nodeCount / 2 - 1);
 
             return root;
         }
         #region ДобавлениеУзла
-        private Node AddNodeRecursive(Node node, string text)
+        private Node AddNodeRecursive(Node node, People people)
         {
             if(node == null) //базовый случай - не встретилось совпадений
-                return new Node(text);
-            int result = string.Compare(node.Value, text);
+                return new Node(people);
+            int result = string.Compare(people.FullName, node.People.FullName);
             if(result > 0)
-                node.Left = AddNodeRecursive(node.Left, text);
+                node.Left = AddNodeRecursive(node.Left, people);
             else if( result < 0)
-                node.Right = AddNodeRecursive(node.Right, text);
+                node.Right = AddNodeRecursive(node.Right, people);
 
             return node;
         }
-        public void AddNode(string text) =>
-            Root = AddNodeRecursive(Root, text);
+        public void AddNode(string fullname, DateOnly birthday)
+        {
+            People people = new People(fullname, birthday);
+            Root = AddNodeRecursive(Root, people);
+
+        }
         #endregion
 
         #region Удаление узла
         private Node DeleteNodeRecursive(Node node, string text)
         {
             if (node == null) return null;
-            int result = string.Compare(text, node.Value);
+            int result = string.Compare(text, node.People.FullName);
             if(result < 0)
                 node.Left = DeleteNodeRecursive(node.Left, text);
             else if(result > 0)
@@ -65,8 +78,8 @@ namespace Tree
                 else if(node.Right == null)
                     return node.Left;
 
-                node.Value = FindMinValue(node.Right);
-                node.Right = DeleteNodeRecursive(node.Right, node.Value);
+                node.People.FullName = FindMinValue(node.Right);
+                node.Right = DeleteNodeRecursive(node.Right, node.People.FullName);
 
             }
             return node;
@@ -78,25 +91,25 @@ namespace Tree
             {
                 current = current.Left; 
             }
-            return current.Value;
+            return current.People.FullName;
         }
         public void DeleteNode(string text)=>
             Root = DeleteNodeRecursive(Root, text);
         #endregion
 
         #region ОбходДереваRLR
-        private void TreeTravelsalRecursive(Node node, List<string> results)
+        private void TreeTravelsalRecursive(Node node, List<People> results)
         {
             if(node!=null)
             {
-                results.Add(node.Value);
+                results.Add(node.People);
                 TreeTravelsalRecursive(node.Left, results);
                 TreeTravelsalRecursive(node.Right, results);
             }
         }
-        public List<string> TreeTraversal()
+        public List<People> TreeTraversal()
         {
-            List<string> results = new List<string>();
+            List<People> results = new List<People>();
             TreeTravelsalRecursive(Root, results);
             return results;
         }
@@ -106,7 +119,7 @@ namespace Tree
         private bool FindNodeRecursive(Node node, string text)
         {
             if(node==null) return false;
-            int resurt = string.Compare(node.Value, text);
+            int resurt = string.Compare(node.People.FullName, text);
             if (resurt == 0)
                 return true;
             else if (resurt < 0)
@@ -118,5 +131,21 @@ namespace Tree
             FindNodeRecursive(Root, text);
 
         #endregion
+
+
+        public double GetAverageAge()
+        {
+            var people = TreeTraversal();
+            if (people.Count == 0)
+                return 0;
+
+            int totalAge = 0;
+            foreach (var person in people)
+            {
+                totalAge += person.Age;
+            }
+
+            return (double)totalAge / people.Count;
+        }
     }
 }
