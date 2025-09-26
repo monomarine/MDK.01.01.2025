@@ -38,9 +38,9 @@ namespace Tree
             if(node == null) //базовый случай - не встретилось совпадений
                 return new Node(text);
             int result = string.Compare(node.Value, text);
-            if(result < 0)
+            if(result > 0)
                 node.Left = AddNodeRecursive(node.Left, text);
-            else if( result > 0)
+            else if( result < 0)
                 node.Right = AddNodeRecursive(node.Right, text);
 
             return node;
@@ -53,7 +53,7 @@ namespace Tree
         private Node DeleteNodeRecursive(Node node, string text)
         {
             if (node == null) return null;
-            int result = string.Compare(node.Value, text);
+            int result = string.Compare(text, node.Value);
             if(result < 0)
                 node.Left = DeleteNodeRecursive(node.Left, text);
             else if(result > 0)
@@ -73,16 +73,15 @@ namespace Tree
         }
         private string FindMinValue(Node node)
         {
-            string minValue = node.Value;
-            while(node.Left != null)
+            Node current = node;
+            while (current.Left != null)
             {
-                minValue = node.Left.Value;
-                node = node.Left;
+                current = current.Left; 
             }
-            return minValue;
+            return current.Value;
         }
         public void DeleteNode(string text)=>
-            DeleteNodeRecursive(Root, text);
+            Root = DeleteNodeRecursive(Root, text);
         #endregion
 
         #region ОбходДереваRLR
