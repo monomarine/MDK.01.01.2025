@@ -44,5 +44,11 @@ namespace _02._02.Interfaces
         {
             if(isLocked) isLocked = false;
         }
-    }
+
+		public override string ToString()
+		{
+            string lockedText = IsLocked ? "заблокирован" : "разблокирован";
+			return $"На счету {summ} рублей, счет {lockedText}";
+		}
+	}
 }
