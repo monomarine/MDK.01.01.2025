@@ -26,11 +26,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tree", "Tree\Tree.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Polimor", "Polimor", "{63672E67-C9EB-4C6C-B567-BAFFE8D1D712}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POl", "POL\POl.csproj", "{812F7B42-2AD1-41FD-809B-2837799FF575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POl", "POL\POl.csproj", "{812F7B42-2AD1-41FD-809B-2837799FF575}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trees", "Trees", "{076E404A-2EC3-49E6-994D-FFD03AE4F6E4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree", "Tree\Tree.csproj", "{5203A841-ECA5-4B2A-A878-179059E8EDF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
