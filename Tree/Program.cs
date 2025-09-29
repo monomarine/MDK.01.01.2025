@@ -1,4 +1,4 @@
-﻿namespace Tree
+namespace Tree
 {
 	public static class Program
 	{

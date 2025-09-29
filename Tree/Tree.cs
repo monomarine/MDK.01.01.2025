@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
-using System.Security.Cryptography.X509Certificates;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -126,6 +125,5 @@ namespace Tree
 
 		public bool FindNode(User value) =>
 			FindNodeRecursive(Root, value);
-
 	}
 }

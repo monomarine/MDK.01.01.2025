@@ -28,6 +28,7 @@ namespace Graph
 
             Console.WriteLine("= Обход в ширину =");
             graph.Width();
+          
             Console.WriteLine("=============");
             Console.WriteLine($"Общее количество баллов => {graph.ReceiveFullScore()}");
             Console.WriteLine($"Среднее количество баллов => {graph.ReceiveAverageScore()}");
