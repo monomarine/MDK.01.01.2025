@@ -4,7 +4,25 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            ISave save = new Account();
+
+            save.Unlock();
+
+            save.AddMoney(100);
+
+            save.Lock();
+
+            Console.WriteLine(save);
+
+            try
+            {
+                save.DecMoney(100);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine(save);
         }
     }
 }
