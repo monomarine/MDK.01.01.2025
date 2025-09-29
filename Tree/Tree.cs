@@ -126,5 +126,6 @@ namespace Tree
 
 		public bool FindNode(User value) =>
 			FindNodeRecursive(Root, value);
+
 	}
 }
