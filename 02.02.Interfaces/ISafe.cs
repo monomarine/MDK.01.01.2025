@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _02._02.Interfaces
 {
-    internal interface ISave : IPurse
+    public interface ISave : IPurse
     {
         bool IsLocked { get; }
         void Lock();
