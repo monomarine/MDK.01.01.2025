@@ -25,6 +25,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.02.Interfaces", "02.02.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.03.OperatorOverloads", "02.03.OperatorOverloads\02.03.OperatorOverloads.csproj", "{F2A22B47-BDB8-44F0-BA59-D0B4F05371F4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HomeTask", "HomeTask", "{B05987FF-92F1-4156-99A7-44A6BF5200C1}"
+	ProjectSection(SolutionItems) = preProject
+		02.01.Рolymorphism\Popov_30 (2).zip = 02.01.Рolymorphism\Popov_30 (2).zip
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
