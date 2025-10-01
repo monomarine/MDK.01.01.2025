@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -96,7 +97,7 @@ namespace _02._02.Interfaces
         public override string ToString()
         {
             string state = IsLocked ? "заблокирован" : "разблокирован";
-            return $"на счету {balance} рублей. счет {state}";
+            return $"на счету {balance} рублей. счет {state}, id клиента {id}, врем создания клиента {DateCreated:dd.MM.yyyy HH:mm:ss}";
         }
     }
 }
