@@ -1,4 +1,6 @@
-﻿namespace _02._02.Interfaces
+﻿using System.Security.Principal;
+
+namespace _02._02.Interfaces
 {
     internal class Program
     {
@@ -21,7 +23,26 @@
                 Console.WriteLine(ex.Message);
             }
             Console.WriteLine(save);
+            
+            ISave save2 = new Account();
 
+            try
+            {
+                save2.Unlock();
+                save2.AddMoney(100);
+                
+                Console.WriteLine(save2);
+               
+                save2.Lock();
+                save2.DecMoney(20);
+                
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine(save2);
         }
     }
 }
