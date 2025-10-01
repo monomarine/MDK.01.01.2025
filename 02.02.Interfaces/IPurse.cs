@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _02._02.Interfaces
 {
-    internal interface IPurse
+    public interface IPurse
     {
         int Summ { get; set; }
         void AddMoney (int amount);
