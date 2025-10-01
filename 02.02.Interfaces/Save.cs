@@ -8,47 +8,54 @@ namespace _02._02.Interfaces
 {
     internal class Save : ISave
     {
-        private bool isLocked = true;
-        private int summ = 0;
-        public bool IsLocked => isLocked;
+        public int Summ { get; set; }
+        public bool IsLocked { get; private set; }
 
-        public int Summ
+        public Save()
         {
-            get => summ;
-            set => summ = value;
+            Summ = 0;
+            IsLocked = true;
         }
 
         public void AddMoney(int amount)
         {
-            if (amount > 0 && !IsLocked)
-                Summ += amount;
-            else if (IsLocked)
-                throw new ArgumentException("Нельзя пополнить счет");
+            if (IsLocked)
+                throw new InvalidOperationException("Счет заблокирован! Нельзя пополнить.");
+
+            if (amount <= 0)
+                throw new ArgumentException("Сумма должна быть положительной!");
+
+            Summ += amount;
         }
 
         public int DecMoney(int amount)
         {
-            if (Summ > amount && !IsLocked)
-                return Summ -= amount;
-            else if (IsLocked) throw new ArgumentException("Нельзя снять деньги");
-            else
-                throw new ArgumentException("Недостаточно средств");
+            if (IsLocked)
+                throw new InvalidOperationException("Счет заблокирован! Нельзя снять деньги.");
+
+            if (amount <= 0)
+                throw new ArgumentException("Сумма должна быть положительной!");
+
+            if (amount > Summ)
+                throw new InvalidOperationException("Недостаточно средств!");
+
+            Summ -= amount;
+            return amount;
         }
 
         public void Lock()
         {
-            if(!isLocked) isLocked = true;
+            IsLocked = true;
         }
 
         public void Unlock()
         {
-            if(isLocked) isLocked = false;
+            IsLocked = false;
         }
 
         public override string ToString()
         {
-            string state = IsLocked ? "заблокирован" : "разблокирован";
-            return $"на счету {summ} рублей. счет {state}";
+            return $"Состояние счета: {Summ} руб. (Заблокирован: {IsLocked})";
         }
     }
 }
