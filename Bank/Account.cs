@@ -106,7 +106,7 @@ namespace Bank
 
         public override string ToString()
         {
-            string result = $"id => {_id} \nBalance => {_summ} \nAnnualInterestRate => {AnnualInterestRate} \nDateCreated => {_dateCreated}";
+            string result = $"id => {_id} \nBalance => {_summ} \nAnnualInterestRate => {AnnualInterestRate} \nDateCreated => {_dateCreated} \nЗаблокирован => {_isLocked}"; 
             Console.WriteLine("================");
             Console.WriteLine(result);
             Console.WriteLine("================");

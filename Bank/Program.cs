@@ -8,7 +8,7 @@
             Account.AnnualInterestRate = 4.5f;
 
             a1.ToString();
-            //a1.Unlock();
+            a1.Unlock();
             Console.WriteLine(a1.DecMoney(2500));
 
             a1.AddMoney(3000);
