@@ -6,49 +6,113 @@ using System.Threading.Tasks;
 
 namespace _02._02.Interfaces
 {
-    internal class Save : ISave
+    internal class Account : ISave
     {
-        private bool isLocked = true;
-        private int summ = 0;
+        internal int Id { get; set; }
+        internal double balance { get; set; }
+        internal double annualInterestRate { get; set; }
+        internal DateTime dateCreated { get; }
+
+        private bool isLocked = false;
+
         public bool IsLocked => isLocked;
 
         public int Summ
         {
-            get => summ;
-            set => summ = value;
+            get => (int)balance;
+            set => balance = value;
+        }
+
+        public Account()
+        {
+            Id = 0;
+            balance = 0;
+            annualInterestRate = 0;
+            dateCreated = DateTime.Now;
+        }
+
+        public Account(int Id, double balance)
+        {
+            this.Id = Id;
+            this.balance = balance;
+            dateCreated = DateTime.Now;
+        }
+
+        public void GetMonthlyInterest()
+        {
+            double MonthlyProcent = 0;
+            double MonthlyProcentS = 0;
+            MonthlyProcentS = (annualInterestRate / 12) / 100;
+            MonthlyProcent = balance * MonthlyProcentS;
+        }
+
+        public double WithDraw(double amountd)
+        {
+            if (IsLocked)
+                throw new ArgumentException("Счет заблокирован. Нельзя снять деньги");
+
+            if (amountd > 0 && balance >= amountd)
+            {
+                balance -= amountd;
+                return balance;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public double Deposit(double amounts)
+        {
+            if (IsLocked)
+                throw new ArgumentException("Счет заблокирован. Нельзя пополнить счет");
+
+            if (amounts > 0)
+            {
+                balance += amounts;
+            }
+            return balance;
         }
 
         public void AddMoney(int amount)
         {
-            if (amount > 0 && !IsLocked)
-                Summ += amount;
-            else if (IsLocked)
-                throw new ArgumentException("Нельзя пополнить счет");
+            if (IsLocked)
+                throw new ArgumentException("Счет заблокирован. Нельзя пополнить счет");
+
+            if (amount > 0)
+                balance += amount;
         }
 
         public int DecMoney(int amount)
         {
-            if (Summ > amount && !IsLocked)
-                return Summ -= amount;
-            else if (IsLocked) throw new ArgumentException("Нельзя снять деньги");
-            else
-                throw new ArgumentException("Недостаточно средств");
-        }
+            if (IsLocked)
+                throw new ArgumentException("Счет заблокирован. Нельзя снять деньги");
 
+            if (amount > 0 && balance >= amount)
+            {
+                balance -= amount;
+                return amount;
+            }
+            else
+            {
+                throw new ArgumentException("Недостаточно средств");
+            }
+        }
         public void Lock()
         {
-            if(!isLocked) isLocked = true;
+            if (!isLocked)
+                isLocked = true;
         }
 
         public void Unlock()
         {
-            if(isLocked) isLocked = false;
+            if (isLocked)
+                isLocked = false;
         }
-
         public override string ToString()
         {
             string state = IsLocked ? "заблокирован" : "разблокирован";
-            return $"на счету {summ} рублей. счет {state}";
+            return $"Счет №{Id}: на счету {balance} рублей. Счет {state}. Дата создания: {dateCreated:dd.MM.yyyy}";
         }
     }
 }
