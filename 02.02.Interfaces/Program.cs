@@ -1,27 +1,33 @@
-﻿namespace _02._02.Interfaces
+﻿using System;
+
+namespace _02._02.Interfaces
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            ISave save = new Save();
+            var account = new Account(1122, 20000);
+            Account.AnnualInterestRate = 4.5;
+
+            account.Withdraw(2500);
+            account.Deposit(3000);
+
+            Console.WriteLine(account);
+            Console.WriteLine($"Ежемесячные проценты: {account.GetMonthlyInterest():F2} руб.");
+
+            var save = new Save();
 
             try
             {
                 save.Unlock();
-                save.AddMoney(10000);
-
+                save.AddMoney(5000);
+                save.DecMoney(2000);
                 Console.WriteLine(save);
-
-                save.Lock();
-                save.DecMoney(1000);
-                
             }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
             }
-            Console.WriteLine(save);
-
         }
     }
 }
