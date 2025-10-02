@@ -26,10 +26,10 @@ namespace _02._02.Interfaces
                 throw new ArgumentException("Нельзя пополнить счет");
         }
 
-        public int DecMoney(int amount)
+        public void DecMoney(int amount)
         {
             if (Summ > amount && !IsLocked)
-                return Summ -= amount;
+                 Summ -= amount;
             else if (IsLocked) throw new ArgumentException("Нельзя снять деньги");
             else
                 throw new ArgumentException("Недостаточно средств");

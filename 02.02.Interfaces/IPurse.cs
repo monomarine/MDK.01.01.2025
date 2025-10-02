@@ -10,6 +10,6 @@ namespace _02._02.Interfaces
     {
         int Summ { get; set; }
         void AddMoney (int amount);
-        int DecMoney (int amount);
+        void DecMoney (int amount);
     }
 }
