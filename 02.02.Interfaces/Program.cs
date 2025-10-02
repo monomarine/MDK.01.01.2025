@@ -4,24 +4,27 @@
     {
         static void Main(string[] args)
         {
-            ISave save = new Save();
+            ISave account = new Account("12345");
 
             try
             {
-                save.Unlock();
-                save.AddMoney(10000);
+                account.Unlock();
+                account.AddMoney(5000);
 
-                Console.WriteLine(save);
+                Console.WriteLine(account);
 
-                save.Lock();
-                save.DecMoney(1000);
-                
+                account.DecMoney(1500);
+                Console.WriteLine(account);
+
+                account.Lock();
+                account.DecMoney(500); 
             }
-            catch (Exception ex) {
-                Console.WriteLine(ex.Message);
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
             }
-            Console.WriteLine(save);
 
+            Console.WriteLine(account);
         }
     }
 }
