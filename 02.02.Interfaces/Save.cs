@@ -1,54 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _02._02.Interfaces
 {
-    internal class Save : ISave
+    internal class Save : IPurse
     {
-        private bool isLocked = true;
-        private int summ = 0;
-        public bool IsLocked => isLocked;
+        public int Summ { get; private set; }
+        public bool IsLocked { get; private set; }
 
-        public int Summ
+        public Save()
         {
-            get => summ;
-            set => summ = value;
+            Summ = 0;
+            IsLocked = true;
         }
 
         public void AddMoney(int amount)
         {
-            if (amount > 0 && !IsLocked)
-                Summ += amount;
-            else if (IsLocked)
-                throw new ArgumentException("Нельзя пополнить счет");
+            if (IsLocked)
+                throw new InvalidOperationException("Счет заблокирован. Пополнение невозможно.");
+
+            if (amount <= 0)
+                throw new ArgumentException("Сумма пополнения должна быть больше нуля.");
+
+            Summ += amount;
         }
 
         public int DecMoney(int amount)
         {
-            if (Summ > amount && !IsLocked)
-                return Summ -= amount;
-            else if (IsLocked) throw new ArgumentException("Нельзя снять деньги");
-            else
-                throw new ArgumentException("Недостаточно средств");
+            if (IsLocked)
+                throw new InvalidOperationException("Счет заблокирован. Снятие невозможно.");
+
+            if (amount <= 0)
+                throw new ArgumentException("Сумма снятия должна быть больше нуля.");
+
+            if (amount > Summ)
+                throw new InvalidOperationException("Недостаточно средств на счете.");
+
+            Summ -= amount;
+            return amount;
         }
 
-        public void Lock()
-        {
-            if(!isLocked) isLocked = true;
-        }
+        public void Lock() => IsLocked = true;
+        public void Unlock() => IsLocked = false;
 
-        public void Unlock()
+        // явная реализация интерфейса
+        int IPurse.Summ
         {
-            if(isLocked) isLocked = false;
+            get => Summ;
+            set => Summ = value;
         }
 
         public override string ToString()
         {
-            string state = IsLocked ? "заблокирован" : "разблокирован";
-            return $"на счету {summ} рублей. счет {state}";
+            return $"Баланс: {Summ} руб. | {(IsLocked ? "Заблокирован" : "Активен")}";
         }
     }
 }
