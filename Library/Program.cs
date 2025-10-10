@@ -9,6 +9,7 @@
             Book b3 = new Book("Горе от ума", "Грибоедов");
 
             Library lib = new Library();
+
             lib.AddBook(b1);
             lib.AddBook(b2);
             // lib.AddBook(b1); // вызов ошибки BookAlreadyExists 
