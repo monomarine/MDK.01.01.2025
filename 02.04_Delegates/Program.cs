@@ -1,6 +1,9 @@
-﻿namespace _02._04_Delegates
+using System.Security.Cryptography.X509Certificates;
+
+namespace _02._04_Delegates
 {
     public delegate bool FilterDelegate<T>(T x);
+
     internal class Program
     {
         //переписать код для коллекции строк и произвести фильтрацию строк (вывести в результат только
@@ -25,4 +28,3 @@
 			return result;
 		}
 	}
-}
