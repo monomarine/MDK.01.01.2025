@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.02.Interfaces", "02.02.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.03.OperatorOverloads", "02.03.OperatorOverloads\02.03.OperatorOverloads.csproj", "{F2A22B47-BDB8-44F0-BA59-D0B4F05371F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.04_Delegates", "02.04_Delegates\02.04_Delegates.csproj", "{33468F15-9892-4A41-83FC-2ED2C53C5756}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{F2A22B47-BDB8-44F0-BA59-D0B4F05371F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2A22B47-BDB8-44F0-BA59-D0B4F05371F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2A22B47-BDB8-44F0-BA59-D0B4F05371F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33468F15-9892-4A41-83FC-2ED2C53C5756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33468F15-9892-4A41-83FC-2ED2C53C5756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33468F15-9892-4A41-83FC-2ED2C53C5756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33468F15-9892-4A41-83FC-2ED2C53C5756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{B0F44F37-3748-D677-2DA7-C6003D9F6D1C} = {637C84E2-F43C-401F-8F05-A81D30B6462B}
 		{4BE5470C-78C8-492A-B672-909B4AF4FD20} = {637C84E2-F43C-401F-8F05-A81D30B6462B}
 		{F2A22B47-BDB8-44F0-BA59-D0B4F05371F4} = {637C84E2-F43C-401F-8F05-A81D30B6462B}
+		{33468F15-9892-4A41-83FC-2ED2C53C5756} = {637C84E2-F43C-401F-8F05-A81D30B6462B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A512C77-FEA7-492B-9D15-52E88AD20230}
