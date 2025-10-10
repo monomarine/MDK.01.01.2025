@@ -30,6 +30,17 @@
                 Console.WriteLine(r);
         }
 
+        public static List<int> Filter(List<int> data, FilterDelegate delegat)
+        {
+            var result = new List<int>();
+            foreach (int d in data)
+            {
+                if (delegat(d))
+                    result.Add(d);
+            }
+            return result;
+        }
+
         public static List<string> FilterStrings(List<string> data, FilterStringDelegate delegat)
         {
             var result = new List<string>();
