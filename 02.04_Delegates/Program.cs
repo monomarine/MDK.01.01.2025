@@ -1,30 +1,54 @@
 ﻿namespace _02._04_Delegates
 {
-    public delegate bool FilterDelegate(int x);
+    public delegate bool FilterDelegate(string x);
+
     internal class Program
     {
-        //переписать код для коллекции строк и произвести фильтрацию строк (вывести в результат только
-        //те строки, в которых нет спецсимволов)
         static void Main(string[] args)
         {
-            List<int> numbers = new() { 4, 8, 2, 8, 5, 98, 8, 5, };
-            var res1 = Filter(numbers, n => n % 2 == 0);
-            var res2 = Filter(numbers, n => n > 10);
+            List<string> strings = new()
+            {"egor#", "buglak", "lol", "artem$", "golovnik", "kek"};
 
+            var res1 = Filter(strings, s => !FindSpecChar(s));
+            var res2 = Filter(strings, s => FindDefaultString(s));
 
-            foreach(var r in res2)
-                Console.Write(r+ " ");
-        } 
+            Console.WriteLine("Строки без специальных символов:");
+            foreach (var r in res1)
+                Console.WriteLine(r);
+        }
 
-        public static List<int> Filter(List<int> data, FilterDelegate delegat)
+        public static List<string> Filter(List<string> data, FilterDelegate delegat)
         {
-            var result = new List<int>();
-            foreach (int d in data)
+            var result = new List<string>();
+            foreach (string d in data)
             {
                 if (delegat(d))
                     result.Add(d);
             }
             return result;
+        }
+        public static bool FindSpecChar(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool FindDefaultString(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsLetter(c) && !char.IsWhiteSpace(c))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
