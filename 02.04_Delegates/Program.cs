@@ -24,15 +24,5 @@
 			}
 			return result;
 		}
-
-        private static bool CheckString(string text, char[] filter)
-        {
-            foreach (var x in filter)
-            {
-                if (text.Contains(x))
-                    return false;
-            }
-            return true;
-        }
 	}
 }
