@@ -2,38 +2,65 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace _02._05_EventsWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для Monitor.xaml
-    /// </summary>
     public partial class Monitor : Window
     {
-        private NotificationService _service = new();
-        
+        private readonly NotificationService _service = new NotificationService();
+        private readonly ILogger _consoleLogger;
+        private readonly ILogger _fileLogger;
 
         public Monitor(ICollection<Order> orders)
         {
             InitializeComponent();
-            _service.AddOrder(orders.ToArray<Order>());
+
+            _consoleLogger = new ConsoleLogger();
+            _fileLogger = new FileLogger("orders_monitor.log");
+
+            _consoleLogger.Log("Монитор заказов запущен");
+            _fileLogger.Log("Монитор заказов запущен");
+
+            _service.AddOrder(orders.ToArray());
             _service.UpdateData += UpdateList;
         }
 
         private void UpdateList(object sender, OrderEventArgs e)
         {
-            monitorListBox.Items.Add(e.Message);
-            monitorListBox.Items.Refresh();
+            Dispatcher.InvokeAsync(() =>
+            {
+                monitorListBox.Items.Add(e.Message);
+
+                if (monitorListBox.Items.Count > 0)
+                {
+                    monitorListBox.ScrollIntoView(monitorListBox.Items[monitorListBox.Items.Count - 1]);
+                }
+            });
+
+            _consoleLogger.Log(e.Message);
+            _fileLogger.Log(e.Message);
+
+            if (e.Message.Contains("ошибка", StringComparison.OrdinalIgnoreCase))
+            {
+                _consoleLogger.LogError(e.Message);
+                _fileLogger.LogError(e.Message);
+            }
+            else if (e.Message.Contains("внимание", StringComparison.OrdinalIgnoreCase))
+            {
+                _consoleLogger.LogWarning(e.Message);
+                _fileLogger.LogWarning(e.Message);
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _consoleLogger.Log("Монитор заказов закрыт");
+            _fileLogger.Log("Монитор заказов закрыт");
+
+            _service.UpdateData -= UpdateList;
+            base.OnClosed(e);
         }
     }
 }
