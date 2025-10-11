@@ -13,14 +13,19 @@ namespace _02._05_EventsWPF.Data
         private string _logFile = "logs.txt";
 
         public event EventHandler<OrderEventArgs>? UpdateData;
+        public event EventHandler<OrderEventArgs>? LogToFile;
         protected virtual void OnUpdateData(OrderEventArgs e)
         {
             UpdateData?.Invoke(this, e);
         }
+        protected virtual void OnLogToFile(OrderEventArgs e)
+        {
+            LogToFile?.Invoke(this, e);
+        }
 
         public void AddOrder(params Order[] orders)
         {
-            foreach(var o in orders)
+            foreach (var o in orders)
             {
                 o.Purchased += OrderPaid;
                 _orders.Add(o);
@@ -31,21 +36,23 @@ namespace _02._05_EventsWPF.Data
             foreach (var o in _orders)
                 o.Purchased -= OrderPaid;
 
-            _orders.Clear() ;
+            _orders.Clear();
         }
 
-        public void OrderPaid(object? send, OrderEventArgs e)
+        public void OrderPaid(object? sender, OrderEventArgs e)
         {
-            if (send is Order)
+            if (sender is Order order)
             {
-                var order = (Order)send;
-                string orderInfo = $"оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
-                OnUpdateData(new OrderEventArgs($"оплата от заказчика {order.Client}", e.Summ));
-                File.AppendAllText(_logFile, $"\n{e.TimeStamp}\t{orderInfo}");
+                OnUpdateData(new OrderEventArgs($"оплата заказчика {order.Client}", e.Summ));
+                OnLogToFile(new OrderEventArgs($"оплата заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}", e.Summ));
             }
         }
-         
 
+        public void WriteToFile(object? sender, OrderEventArgs e)
+        {
+            string logEntry = $"{e.TimeStamp}\t{e.Message}";
+            File.AppendAllText(_logFile, logEntry + Environment.NewLine);
+        }
         public void Dispose()
         {
             CleanPublishers();
