@@ -7,15 +7,24 @@ using System.IO;
 
 namespace _02._05_EventsWPF.Data
 {
-    internal class NotificationService : IDisposable
+    internal class NotificationServiceLog : IDisposable
     {
         private List<Order> _orders = new();
-        private string _logFile = "logs.txt";
 
-        public void AddOrder(Order order)
+        public event EventHandler<OrderEventArgs>? UpdateData;
+        protected virtual void onUpdateDate(OrderEventArgs e)
         {
-            order.Purchased += OrderPaid;
-            _orders.Add(order);
+            UpdateData?.Invoke(this, e);
+        }
+
+        public void AddOrder(params Order[] order)
+        {
+            foreach (var o in order) 
+            {
+                
+            o.Purchased += OrderPaid;
+            _orders.Add(o);
+            }
         }
         private void CleanPublishers()
         {
@@ -32,7 +41,10 @@ namespace _02._05_EventsWPF.Data
                 var order = (Order)send;
                 string orderInfo = $"оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
                 
-                File.AppendAllText(_logFile, $"{e.TimeStamp}\t{orderInfo}");
+                string fileString =  $"\n{e.TimeStamp}\t{orderInfo}";
+                
+
+                onUpdateDate(new OrderEventArgs($"оплата от заказчика { order.Client }", e.Summ));
             }
 
 
