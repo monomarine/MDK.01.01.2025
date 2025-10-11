@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace _02._05_EventsWPF.Data
 {
     public class NotificationService : IDisposable
     {
         private List<Order> _orders = new();
-        private string _logFile = "logs.txt";
 
         public event EventHandler<OrderEventArgs>? UpdateData;
         protected virtual void OnUpdateData(OrderEventArgs e)
@@ -41,7 +39,6 @@ namespace _02._05_EventsWPF.Data
                 var order = (Order)send;
                 string orderInfo = $"оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
                 OnUpdateData(new OrderEventArgs($"оплата от заказчика {order.Client}", e.Summ));
-                File.AppendAllText(_logFile, $"\n{e.TimeStamp}\t{orderInfo}");
             }
         }
          

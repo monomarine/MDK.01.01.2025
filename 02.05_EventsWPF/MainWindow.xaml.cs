@@ -32,7 +32,7 @@ namespace _02._05_EventsWPF
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if(ordersListBox.SelectedItem is Order)
+            if (ordersListBox.SelectedItem is Order)
             {
                 Order order = (Order)ordersListBox.SelectedItem;
                 order.PaidOrder(5000);

@@ -21,7 +21,7 @@ namespace _02._05_EventsWPF
     public partial class Monitor : Window
     {
         private NotificationService _service = new();
-        
+
 
         public Monitor(ICollection<Order> orders)
         {
