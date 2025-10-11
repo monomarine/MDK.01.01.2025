@@ -9,9 +9,7 @@ namespace _02._05_EventsWPF
     public enum OrderStatus { New, Paid }
     public class Order
     {
-        public event EventHandler<OrderEventArgs>? Purchased; //событие
-        //внутренний метод для генерации события с передачей
-        //ссылки на заказ и аргументами e
+        public event EventHandler<OrderEventArgs>? Purchased; 
         protected virtual void OnPurshared(OrderEventArgs e) =>
             Purchased?.Invoke(this, e);
         public int Id { get; set; }
