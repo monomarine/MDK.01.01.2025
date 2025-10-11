@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_02._05_EventsWPF"
         mc:Ignorable="d"
-        Title="Монитор событий" Height="450" Width="300">
+        Title="Монитор событий" Height="450" Width="500">
     <StackPanel>
         <ListBox Name="monitorListBox"></ListBox>
     </StackPanel>

@@ -4,24 +4,25 @@
     {
         static void Main(string[] args)
         {
-            ISave save = new Save();
+            ISave save = new Account();
+
+            save.Unlock();
+
+            save.AddMoney(100);
+
+            save.Lock();
+
+            Console.WriteLine(save);
 
             try
             {
-                save.Unlock();
-                save.AddMoney(10000);
-
-                Console.WriteLine(save);
-
-                save.Lock();
-                save.DecMoney(1000);
-                
+                save.DecMoney(100);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
             }
             Console.WriteLine(save);
-
         }
     }
 }

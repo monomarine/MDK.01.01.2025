@@ -9,24 +9,24 @@ namespace _02._05_EventsWPF.Data
 {
     public class NotificationService : IDisposable
     {
-        private List<Order> _orders = new();
-        private string _logFile = "logs.txt";
-
         public event EventHandler<OrderEventArgs>? UpdateData;
-        protected virtual void OnUpdateData(OrderEventArgs e)
-        {
-            UpdateData?.Invoke(this, e);
-        }
+        private List<Order> _orders = new();
 
         public void AddOrder(params Order[] orders)
         {
-            foreach(var o in orders)
+            foreach (var order in orders)
             {
-                o.Purchased += OrderPaid;
-                _orders.Add(o);
-            }
+				order.Purchased += OrderPaid;
+				_orders.Add(order);
+			}
         }
-        private void CleanPublishers()
+
+		protected virtual void OnUpdateData(OrderEventArgs e)
+		{
+			UpdateData?.Invoke(this, e);
+		}
+
+		private void CleanPublishers()
         {
             foreach (var o in _orders)
                 o.Purchased -= OrderPaid;
@@ -34,19 +34,17 @@ namespace _02._05_EventsWPF.Data
             _orders.Clear() ;
         }
 
-        public void OrderPaid(object? send, OrderEventArgs e)
-        {
-            if (send is Order)
-            {
-                var order = (Order)send;
-                string orderInfo = $"оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
-                OnUpdateData(new OrderEventArgs($"оплата от заказчика {order.Client}", e.Summ));
-                File.AppendAllText(_logFile, $"\n{e.TimeStamp}\t{orderInfo}");
-            }
-        }
-         
+		public void OrderPaid(object? send, OrderEventArgs e)
+		{
+			if (send is Order)
+			{
+				var order = (Order)send;
+				string orderInfo = $"[{e.TimeStamp}] оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
+				OnUpdateData(new OrderEventArgs(orderInfo, e.Summ));
+			}
+		}
 
-        public void Dispose()
+		public void Dispose()
         {
             CleanPublishers();
         }

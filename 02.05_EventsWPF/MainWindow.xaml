@@ -15,6 +15,5 @@
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>
-        
     </StackPanel>
 </Window>

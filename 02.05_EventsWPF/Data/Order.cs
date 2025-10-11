@@ -29,9 +29,9 @@ namespace _02._05_EventsWPF
             OnPurshared(new OrderEventArgs("заказ оплачен", summ));
         }
 
-        public override string ToString()
-        {
+		public override string ToString()
+		{
             return $"{Id} : {Client}";
-        }
-    }
+		}
+	}
 }

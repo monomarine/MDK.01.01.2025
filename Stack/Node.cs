@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stack
+﻿namespace LinkedList
 {
 #pragma warning disable
 
-    internal class Node //узел стека
+    internal class Node //узел списка
     {
         public string Data { get; set; }
         public Node Next { get; set; }

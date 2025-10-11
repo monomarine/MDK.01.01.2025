@@ -17,26 +17,27 @@ namespace _02._05_EventsWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<Order> _orders = new();
+        private ObservableCollection<Order> _orders = new ObservableCollection<Order>();
+
         public MainWindow()
         {
             InitializeComponent();
-            _orders.Add(new Order(1, "Иванов"));
-            _orders.Add(new Order(2, "Петров"));
-            _orders.Add(new Order(3, "Кузнецов"));
-            _orders.Add(new Order(4, "Семенов"));
-            _orders.Add(new Order(5, "Кутузов"));
 
-            ordersListBox.ItemsSource = _orders;
+            _orders.Add(new Order(1, "Иванов ИИ"));
+			_orders.Add(new Order(2, "Петров ПП"));
+			_orders.Add(new Order(3, "Сергеев СС"));
+			_orders.Add(new Order(4, "Вадимов ВВ"));
+			_orders.Add(new Order(5, "Андреев АА"));
+
+			ordersListBox.ItemsSource = _orders;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if(ordersListBox.SelectedItem is Order)
+            if (ordersListBox.SelectedItem is Order)
             {
                 Order order = (Order)ordersListBox.SelectedItem;
-                order.PaidOrder(5000);
-
+                order.PaidOrder(10);
             }
         }
 

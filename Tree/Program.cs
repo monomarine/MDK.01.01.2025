@@ -1,28 +1,29 @@
-﻿namespace Tree
+namespace Tree
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Tree tree = new Tree();
+	public static class Program
+	{
+		public static void Main(string[] args)
+		{
+			Tree tree = new Tree();
 
-             tree.AddNode("Tom");
-             tree.AddNode("Bob");
-             tree.AddNode("Mag");
-            tree.AddNode("1");
-            tree.AddNode("5");
-            tree.AddNode("3");
-            tree.AddNode("4");
-            tree.AddNode("2");
+			User first = new User("Валиков Антон Андреевич", new DateTime(1980, 12, 12));
+			User second = new User("Сергеев Владимир Викторович", new DateTime(1999, 10, 10));
+			User third = new User("Иванов Иван Иванович", new DateTime(1967, 8, 8));
 
-            var res = tree.TreeTraversal();
-            foreach (var item in res) 
-                Console.WriteLine(item);
+			tree.AddNode(first);
+			tree.AddNode(second);
+			tree.AddNode(third);
 
-            tree.DeleteNode("1");
-            var res2 = tree.TreeTraversal();
-            foreach (var item in res2)
-                Console.WriteLine(item);
-        }
-    }
+			List<User> result = tree.TreeTraversal();
+			
+			foreach(var item in result)
+			{
+				Console.WriteLine($"ФИО: {item} Дата рождения: {item.BirthDate.ToShortDateString()} Возраст: {item.Age}");
+			}
+
+			Console.WriteLine($"Средний возраст => {tree.AverageAge()}");
+
+			Console.ReadKey();
+		}
+	}
 }
