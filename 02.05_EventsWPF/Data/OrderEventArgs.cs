@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _02._05_EventsWPF
 {
-    internal class OrderEventArgs : EventArgs
+    public class OrderEventArgs : EventArgs
     {
         public string Message { get; }
         public DateTime TimeStamp { get; }

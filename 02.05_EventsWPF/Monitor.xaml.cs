@@ -1,5 +1,7 @@
-﻿using System;
+﻿using _02._05_EventsWPF.Data;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +21,21 @@ namespace _02._05_EventsWPF
     /// </summary>
     public partial class Monitor : Window
     {
-        public Monitor()
+        private NotificationService _service = new();
+        private Logger _logger = new();
+
+        public Monitor(ICollection<Order> orders)
         {
             InitializeComponent();
+            _service.AddOrder(orders.ToArray());
+            _logger.AddOrder(orders.ToArray());
+            _service.UpdateData += UpdateList;
         }
-    }
+
+		private void UpdateList(object sender, OrderEventArgs e)
+		{
+			monitorListBox.Items.Add(e.Message);
+			monitorListBox.Items.Refresh();
+		}
+	}
 }

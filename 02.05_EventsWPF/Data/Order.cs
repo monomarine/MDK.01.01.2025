@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace _02._05_EventsWPF
 {
     public enum OrderStatus { New, Paid }
-    internal class Order
+    public class Order
     {
         public event EventHandler<OrderEventArgs>? Purchased; //событие
         //внутренний метод для генерации события с передачей
@@ -28,5 +28,10 @@ namespace _02._05_EventsWPF
             this.Status = OrderStatus.Paid;
             OnPurshared(new OrderEventArgs("заказ оплачен", summ));
         }
-    }
+
+		public override string ToString()
+		{
+            return $"{Id} : {Client}";
+		}
+	}
 }
