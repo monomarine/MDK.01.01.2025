@@ -1,6 +1,5 @@
 ﻿namespace _02._04_Delegates
 {
-    public delegate bool FilterDelegate<T>(T x);
     internal class Program
     {
         //переписать код для коллекции строк и произвести фильтрацию строк (вывести в результат только
@@ -9,15 +8,18 @@
         {
             List<string> strings = new() {"Имя", "!Имя", "&Имя", "***ТЕКСТ****", "Текст", "Да"};
 
-            var res = Filter<string>(strings, n => !n.Any(ch => !char.IsLetterOrDigit(ch)));
+            var res = strings.Filter(n => !n.Any(ch => !char.IsLetterOrDigit(ch)));
 
             Console.WriteLine(string.Join(", ", res));
         }
+	}
 
-		public static List<T> Filter<T>(List<T> data, FilterDelegate<T> delegat)
+	public static class ListExtension
+	{
+		public static List<TSource> Filter<TSource>(this List<TSource> data, Predicate<TSource> delegat)
 		{
-			var result = new List<T>();
-			foreach (T x in data)
+			var result = new List<TSource>();
+			foreach (TSource x in data)
 			{
 				if (delegat(x))
 					result.Add(x);
