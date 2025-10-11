@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
+using System.Windows.Controls;
 
 namespace _02._05_EventsWPF.Data
 {
     public class NotificationService : IDisposable
     {
         private List<Order> _orders = new();
-        private string _logFile = "logs.txt";
+        private readonly OrderHandler _logService = new OrderHandler();
 
         public event EventHandler<OrderEventArgs>? UpdateData;
         protected virtual void OnUpdateData(OrderEventArgs e)
@@ -20,7 +21,7 @@ namespace _02._05_EventsWPF.Data
 
         public void AddOrder(params Order[] orders)
         {
-            foreach(var o in orders)
+            foreach (var o in orders)
             {
                 o.Purchased += OrderPaid;
                 _orders.Add(o);
@@ -31,20 +32,18 @@ namespace _02._05_EventsWPF.Data
             foreach (var o in _orders)
                 o.Purchased -= OrderPaid;
 
-            _orders.Clear() ;
+            _orders.Clear();
         }
 
         public void OrderPaid(object? send, OrderEventArgs e)
         {
-            if (send is Order)
+            if (send is Order order)
             {
-                var order = (Order)send;
-                string orderInfo = $"оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
                 OnUpdateData(new OrderEventArgs($"оплата от заказчика {order.Client}", e.Summ));
-                File.AppendAllText(_logFile, $"\n{e.TimeStamp}\t{orderInfo}");
+                _logService.LogOrderPayment(order, e);
             }
         }
-         
+
 
         public void Dispose()
         {
@@ -52,3 +51,4 @@ namespace _02._05_EventsWPF.Data
         }
     }
 }
+
