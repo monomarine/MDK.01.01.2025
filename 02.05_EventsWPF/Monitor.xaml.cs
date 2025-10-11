@@ -20,20 +20,39 @@ namespace _02._05_EventsWPF
     /// </summary>
     public partial class Monitor : Window
     {
-        private NotificationService _service = new();
-        
+        private List<INotificationService> _services = new();
+
 
         public Monitor(ICollection<Order> orders)
         {
             InitializeComponent();
-            _service.AddOrder(orders.ToArray<Order>());
-            _service.UpdateData += UpdateList;
+            var consoleService = new ConsoleNotificationService();
+            var fileService = new FileNotificationService();
+
+            _services.Add(consoleService);
+            _services.Add(fileService);
+
+            foreach (var service in _services)
+            {
+                service.AddOrder(orders.ToArray<Order>());
+                service.UpdateData += UpdateList;
+            }
         }
 
         private void UpdateList(object sender, OrderEventArgs e)
         {
-            monitorListBox.Items.Add(e.Message);
+            string serviceType = sender is ConsoleNotificationService ? "[КОНСОЛЬ]" : "[ФАЙЛ]";
+            monitorListBox.Items.Add($"{serviceType} {e.Message}");
             monitorListBox.Items.Refresh();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            foreach (var service in _services)
+            {
+                service.Dispose();
+            }
+            base.OnClosed(e);
         }
     }
 }
