@@ -21,8 +21,6 @@ namespace _02._05_EventsWPF
     public partial class Monitor : Window
     {
         private NotificationService _service = new();
-        
-
         public Monitor(ICollection<Order> orders)
         {
             InitializeComponent();
@@ -32,8 +30,14 @@ namespace _02._05_EventsWPF
 
         private void UpdateList(object sender, OrderEventArgs e)
         {
-            monitorListBox.Items.Add(e.Message);
+            monitorListBox.Items.Add($"{e.TimeStamp:HH:mm:ss} - {e.Message}");
             monitorListBox.Items.Refresh();
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+            _service.UpdateData -= UpdateList;
+            _service.Dispose();
+            base.OnClosed(e);
         }
     }
 }
