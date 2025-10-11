@@ -10,7 +10,7 @@ namespace _02._05_EventsWPF.Data
     public class NotificationService : IDisposable
     {
         private List<Order> _orders = new();
-        private string _logFile = "logs.txt";
+        private readonly LogService _logService = new LogService();
 
         public event EventHandler<OrderEventArgs>? UpdateData;
         protected virtual void OnUpdateData(OrderEventArgs e)
@@ -36,12 +36,10 @@ namespace _02._05_EventsWPF.Data
 
         public void OrderPaid(object? send, OrderEventArgs e)
         {
-            if (send is Order)
+            if (send is Order order)
             {
-                var order = (Order)send;
-                string orderInfo = $"оплата от заказчика {order.Client} по заказу номер {order.Id} на сумму {e.Summ}";
                 OnUpdateData(new OrderEventArgs($"оплата от заказчика {order.Client}", e.Summ));
-                File.AppendAllText(_logFile, $"\n{e.TimeStamp}\t{orderInfo}");
+                _logService.LogOrderPayment(order, e);
             }
         }
          
