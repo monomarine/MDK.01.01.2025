@@ -7,7 +7,7 @@ using System.IO;
 
 namespace _02._05_EventsWPF.Data
 {
-    internal class NotificationService : IDisposable
+    public class NotificationService : IDisposable
     {
         public event EventHandler<OrderEventArgs>? UpdateData;
         private List<Order> _orders = new();
@@ -31,7 +31,7 @@ namespace _02._05_EventsWPF.Data
             foreach (var o in _orders)
                 o.Purchased -= OrderPaid;
 
-            _orders = null;
+            _orders.Clear() ;
         }
 
 		public void OrderPaid(object? send, OrderEventArgs e)

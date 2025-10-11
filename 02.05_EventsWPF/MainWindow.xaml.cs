@@ -39,6 +39,7 @@ namespace _02._05_EventsWPF
                 Order order = (Order)ordersListBox.SelectedItem;
                 order.PaidOrder(10);
             }
+            }
         }
 
         private void OpenMonitor_Click(object sender, RoutedEventArgs e)
