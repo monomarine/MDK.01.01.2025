@@ -8,7 +8,7 @@ namespace FactoryMethod
 {
     internal abstract class LoggerFactory
     {
-        public abstract ILogger Createlogger();
+        public abstract ILogger Createlogger(); //фабричный метод. логика инициализации лежит на потомках
 
         public void Log(string message)
         {
@@ -19,7 +19,7 @@ namespace FactoryMethod
 
     internal class FileLoggerFactory : LoggerFactory
     {
-        public override ILogger Createlogger()
+        public override ILogger Createlogger() //реализация фабричного метода для создания файлового логгера
         {
             return new FileLogger();
         }
@@ -27,7 +27,7 @@ namespace FactoryMethod
 
     internal class ConsoleLoggerFactory : LoggerFactory
     {
-        public override ILogger Createlogger()
+        public override ILogger Createlogger() //реализация фабричного метода для создания консольного логгера
         {
             return new ConsoleLogger();
         }
