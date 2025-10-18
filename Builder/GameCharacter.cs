@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Builder
 {
-    public enum CharacterClass { Warrior, Mage, Archer, Rogue, Priest }
-    internal class GameCharacter
+    public class GameCharacter
     {
         public string Name { get; set; }
         public CharacterClass Class { get; set; }
@@ -30,7 +26,7 @@ namespace Builder
         public void Display()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("ИГРОВОЙ ПЕРСОНАЖ");
+            Console.WriteLine("=== ИГРОВОЙ ПЕРСОНАЖ ===");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"Имя: {Name}");
             Console.WriteLine($"Класс: {Class}");
@@ -46,6 +42,5 @@ namespace Builder
             Equipment.Display();
             Console.WriteLine();
         }
-
     }
 }

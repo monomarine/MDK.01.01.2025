@@ -1,23 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Builder
 {
     internal class CharacterBuilder : ICharacterBuilder
     {
         private GameCharacter _character;
+
         public CharacterBuilder()
         {
-            Reset();
+            _character = new GameCharacter();
         }
+
         public GameCharacter Reset()
         {
-            var resultCharacter = _character;
+            var result = _character;
             _character = new GameCharacter();
-            return resultCharacter;
+            return result;
+        }
+
+        public ICharacterBuilder SetName(string name)
+        {
+            _character.Name = name;
+            return this;
+        }
+
+        public ICharacterBuilder SetClass(CharacterClass characterClass)
+        {
+            _character.Class = characterClass;
+            return this;
+        }
+
+        public ICharacterBuilder SetLevel(int level)
+        {
+            _character.Level = Math.Clamp(level, 1, 100);
+            return this;
+        }
+
+        public ICharacterBuilder SetHealth(int health)
+        {
+            _character.Health = Math.Clamp(health, 0, 200);
+            return this;
+        }
+
+        public ICharacterBuilder SetMana(int mana)
+        {
+            _character.Mana = mana;
+            return this;
+        }
+
+        public ICharacterBuilder SetStrenght(int strenght)
+        {
+            _character.Strength = strenght;
+            return this;
+        }
+
+        public ICharacterBuilder SetIntelligence(int intelligance)
+        {
+            _character.Intelligence = intelligance;
+            return this;
+        }
+
+        public ICharacterBuilder SetDexterity(int dexterity)
+        {
+            _character.Dexterity = dexterity;
+            return this;
         }
 
         public ICharacterBuilder AddSkill(string skillName)
@@ -33,109 +79,70 @@ namespace Builder
             return this;
         }
 
-        public ICharacterBuilder SetClass(CharacterClass characterClass)
-        {
-            _character.Class = characterClass;
-            return this;
-        }
-
-        public ICharacterBuilder SetDexterity(int dexterity)
-        {
-            _character.Dexterity = dexterity;
-            return this;
-        }
-
-        public ICharacterBuilder SetHealth(int health)
-        {
-            _character.Health = Math.Clamp(health, 0, 100);
-            return this;
-        }
-
-        public ICharacterBuilder SetIntelligence(int intelligance)
-        {
-            _character.Intelligence = Math.Clamp(intelligance, 3, 10);
-            return this;
-        }
-
-        public ICharacterBuilder SetLevel(int level)
-        {
-            _character.Level = Math.Clamp(level, 0, 100);
-            return this;
-        }
-
-        public ICharacterBuilder SetName(string name)
-        {
-            _character.Name = name;
-            return this;
-        }
-
         public ICharacterBuilder SetStats()
         {
             switch (_character.Class)
             {
                 case CharacterClass.Warrior:
-                    _character.Dexterity = 3;
-                    _character.Health = 100;
-                    _character.Intelligence = 3;
                     _character.Strength = 10;
-                    _character.Mana = 10;
+                    _character.Health = 120;
+                    break;
+                case CharacterClass.Mage:
+                    _character.Intelligence = 10;
+                    _character.Mana = 150;
                     break;
                 case CharacterClass.Archer:
-                    _character.Dexterity = 5;
-                    _character.Health = 80;
-                    _character.Intelligence = 5;
-                    _character.Strength = 4;
-                    _character.Mana = 4;
-                    break;
-                case CharacterClass.Priest:
-                    _character.Dexterity = 0;
-                    _character.Health = 15;
-                    _character.Intelligence = 7;
-                    _character.Strength = 2;
-                    _character.Mana = 100;
+                    _character.Dexterity = 12;
                     break;
                 case CharacterClass.Rogue:
                     _character.Dexterity = 15;
-                    _character.Health = 50;
-                    _character.Intelligence = 10;
-                    _character.Strength = 5;
-                    _character.Mana = 40;
-                    break;
-                case CharacterClass.Mage:
-                    _character.Dexterity = 10;
-                    _character.Health = 70;
-                    _character.Intelligence = 10;
                     _character.Strength = 8;
-                    _character.Mana = 150;
+                    break;
+                case CharacterClass.Priest:
+                    _character.Mana = 100;
+                    _character.Intelligence = 8;
                     break;
             }
-            _character.Dexterity = _character.Level * 5;
-            _character.Strength = _character.Level * 3;
-            _character.Mana = _character.Level / 2;
-            _character.Intelligence = _character.Level / 2;
-            _character.Health += _character.Level / 2;
-
             return this;
         }
 
-        public ICharacterBuilder SetStrenght(int strenght)
+     
+        public ICharacterBuilder SetWeapon(string weapon)
         {
-            _character.Strength = Math.Clamp(strenght, 0, 10);
+            _character.Equipment.Weapon = weapon;
+            return this;
+        }
+
+        public ICharacterBuilder SetArmor(string armor)
+        {
+            _character.Equipment.Armor = armor;
+            return this;
+        }
+
+        public ICharacterBuilder SetHelmet(string helmet)
+        {
+            _character.Equipment.Helmet = helmet;
+            return this;
+        }
+
+        public ICharacterBuilder SetBoots(string boots)
+        {
+            _character.Equipment.Boots = boots;
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessory(string accessory)
+        {
+            _character.Equipment.Accessories.Add(accessory);
             return this;
         }
 
         public void Validate()
         {
             if (string.IsNullOrEmpty(_character.Name))
-                throw new InvalidOperationException("нет имени персонажа");
-            if (_character.Class == default(CharacterClass))
-                throw new InvalidOperationException("не установлен класс персонажа");
-        }
-
-        public ICharacterBuilder SetMana(int mana)
-        {
-            _character.Mana = mana;
-            return this;
+                throw new InvalidOperationException("Не задано имя персонажа");
+            if (_character.Class == default)
+                throw new InvalidOperationException("Не задан класс персонажа");
         }
     }
 }
