@@ -8,33 +8,62 @@ namespace Builder
 {
     internal class BuilderDirector
     {
-        private readonly ICharacterBuilder _characterBuilder;
-        public BuilderDirector(ICharacterBuilder builder)
+        public BuilderDirector()
         {
-            _characterBuilder = builder;
+            
         }
 
-        public ICharacterBuilder CreateWarrior(string name, int level)
+        public GameCharacter CreateWarrior(string name, int level)
         {
-            return _characterBuilder.SetName(name)
+            return new CharacterBuilder()
+                .SetName(name)
+                .SetClass(CharacterClass.Warrior)
                 .SetLevel(level)
-                .SetAppirance("обыччный воин из деревни")
-                .AddSkill("сильный удар")
-                .AddSkill("быбстрый бег")
-                .SetClass(CharacterClass.Warrior);
+                .SetAppirance("воин")
+                .SetWeapon("меч")
+                .SetArmor("кольчуга")
+                 .AddSkill("сильный удар")
+                .AddSkill("защита")
+                 .AddSkill("атака с разбега")
+                .Build(); 
         }
 
-        public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
+        public GameCharacter CreateNPC(string name, CharacterClass npcClass, string role)
         {
-            return _characterBuilder.SetName(name)
-                .SetLevel(level)
-                .SetClass(characterClass)
-                .SetIntelligence(10)
-                .SetMana(mana)
-                .SetStrenght(strenght)
-                .AddSkill("огненный взрыв")
-                .AddSkill("ярость");
+            var builder = new CharacterBuilder()
+        .SetName(name)
+        .SetClass(npcClass)
+        .SetLevel(5);
 
+            switch (role)
+            {
+                case "Торговец":
+                    builder.SetWeapon("трость")
+                          .SetArmor("одежда")
+                          .AddSkill("торговля")
+                          .AddSkill("убеждение");
+                    break;
+                case "Стражник":
+                    builder.SetWeapon("копье")
+                          .SetArmor("броня")
+                          .AddSkill("бдительность")
+                          .AddSkill("задержание");
+                    break;
+                case "Целитель":
+                    builder.SetWeapon("посох")
+                          .SetArmor("робы")
+                          .AddSkill("исцеление")
+                          .AddSkill("снятие проклятий");
+                    break;
+                case "Кузнец":
+                    builder.SetWeapon("молот")
+                          .SetArmor("фартук")
+                          .AddSkill("кузнечное дело")
+                          .AddSkill("ремонт оружия");
+                    break;
+            }
+
+            return builder.Build();
         }
     }
 }
