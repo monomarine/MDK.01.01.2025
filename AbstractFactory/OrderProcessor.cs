@@ -27,7 +27,7 @@ namespace AbstractFactory
             var deliveryTime = _transport.GetTransportTime(distance);
             var pakingCostr = _packing.GetPackCost();
 
-            string result = $"\n----------Информация по заказу------------" +
+            string result = $"\n--------Информация по заказу----------" +
                 $"\nстоимость транспортировки: {transportCost}" +
                 $"\nстоимость упаковки: {pakingCostr}" +
                 $"\nтип транспорта {_transport.Type}" +
