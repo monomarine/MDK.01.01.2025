@@ -20,7 +20,7 @@ namespace Builder
                 .SetLevel(level)
                 .SetAppirance("обыччный воин из деревни")
                 .AddSkill("сильный удар")
-                .AddSkill("быбстрый бег")
+                .AddSkill("быстрый бег")
                 .SetClass(CharacterClass.Warrior);
         }
 
@@ -34,7 +34,31 @@ namespace Builder
                 .SetStrenght(strenght)
                 .AddSkill("огненный взрыв")
                 .AddSkill("ярость");
+        }
 
+        public ICharacterBuilder CreateNPC(string name, int level, CharacterClass characterClass, Equipment equipment = null)
+        {
+            var builder = _characterBuilder.SetName(name)
+                .SetLevel(level)
+                .SetClass(characterClass)
+                .SetAppirance("NPC, обитатель деревни")
+                .AddSkill("разговор")
+                .AddSkill("торговля");
+
+            if (equipment != null)
+            {
+                builder.SetEquipment(equipment);
+            }
+            else
+            {
+                builder.SetWeapon("Деревянный посох")
+                       .SetArmor("Обычная одежда")
+                       .SetHelmet("Нет")
+                       .SetBoots("Сандалии")
+                       .AddAccessory("Ожерелье");
+            }
+
+            return builder;
         }
     }
 }

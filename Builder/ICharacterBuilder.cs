@@ -20,5 +20,12 @@ namespace Builder
         ICharacterBuilder SetAppirance(string appirance);
         ICharacterBuilder SetStats();
         void Validate();
+
+        ICharacterBuilder SetWeapon(string weapon);
+        ICharacterBuilder SetArmor(string armor);
+        ICharacterBuilder SetHelmet(string helmet);
+        ICharacterBuilder SetBoots(string boots);
+        ICharacterBuilder AddAccessory(string accessory);
+        ICharacterBuilder SetEquipment(Equipment equipment);
     }
 }

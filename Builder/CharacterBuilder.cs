@@ -11,8 +11,14 @@ namespace Builder
         private GameCharacter _character;
         public CharacterBuilder()
         {
-            Reset();
+            _character = new GameCharacter();
         }
+
+        public GameCharacter GetResult()
+        {
+            return _character;
+        }
+
         public GameCharacter Reset()
         {
             var resultCharacter = _character;
@@ -135,6 +141,43 @@ namespace Builder
         public ICharacterBuilder SetMana(int mana)
         {
             _character.Mana = mana;
+            return this;
+        }
+        public ICharacterBuilder SetWeapon(string weapon)
+        {
+            _character.Equipment.Weapon = weapon ?? "Нет";
+            return this;
+        }
+
+        public ICharacterBuilder SetArmor(string armor)
+        {
+            _character.Equipment.Armor = armor ?? "Нет";
+            return this;
+        }
+
+        public ICharacterBuilder SetHelmet(string helmet)
+        {
+            _character.Equipment.Helmet = helmet ?? "Нет";
+            return this;
+        }
+
+        public ICharacterBuilder SetBoots(string boots)
+        {
+            _character.Equipment.Boots = boots ?? "Нет";
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessory(string accessory)
+        {
+            if (!string.IsNullOrEmpty(accessory) && !_character.Equipment.Accessories.Contains(accessory))
+                _character.Equipment.Accessories.Add(accessory);
+            return this;
+        }
+
+        public ICharacterBuilder SetEquipment(Equipment equipment)
+        {
+            if (equipment != null)
+                _character.Equipment = equipment;
             return this;
         }
     }
