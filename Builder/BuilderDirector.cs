@@ -36,5 +36,24 @@ namespace Builder
                 .AddSkill("ярость");
 
         }
+
+        //нпс
+        public ICharacterBuilder CreateNPC(string name, string role)
+        {
+            return _characterBuilder.SetName(name)
+                .SetLevel(1)
+                .SetAppirance($"простой {role}")
+                .SetHealth(50)
+                .SetMana(10)
+                .SetStrenght(2)
+                .SetIntelligence(2)
+                .SetDexterity(2)
+                .SetWeapon("палка")
+                .SetArmor("рубашка")
+                .SetHelmet("шапка")
+                .SetBoots("кожаные сапоги")
+                .AddAccessory("сумка")
+                .AddSkill("базовые знания");
+        }
     }
 }
