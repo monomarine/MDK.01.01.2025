@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Builder
+﻿namespace Builder
 {
     public interface ICharacterBuilder
     {
@@ -19,6 +13,17 @@ namespace Builder
         ICharacterBuilder AddSkill(string skillName);
         ICharacterBuilder SetAppirance(string appirance);
         ICharacterBuilder SetStats();
+
+        
+        ICharacterBuilder SetWeapon(string weapon);
+        ICharacterBuilder SetArmor(string armor);
+        ICharacterBuilder SetHelmet(string helmet);
+        ICharacterBuilder SetBoots(string boots);
+        ICharacterBuilder AddAccessory(string accessory);
+
+        
+        GameCharacter Reset();
+
         void Validate();
     }
 }

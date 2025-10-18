@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Builder
+﻿namespace Builder
 {
     internal class BuilderDirector
     {
         private readonly ICharacterBuilder _characterBuilder;
+
         public BuilderDirector(ICharacterBuilder builder)
         {
             _characterBuilder = builder;
@@ -16,25 +11,43 @@ namespace Builder
 
         public ICharacterBuilder CreateWarrior(string name, int level)
         {
-            return _characterBuilder.SetName(name)
+            return _characterBuilder
+                .SetName(name)
                 .SetLevel(level)
-                .SetAppirance("обыччный воин из деревни")
-                .AddSkill("сильный удар")
-                .AddSkill("быбстрый бег")
-                .SetClass(CharacterClass.Warrior);
+                .SetClass(CharacterClass.Warrior)
+                .SetAppirance("Сильный деревенский воин")
+                .AddSkill("Мощный удар")
+                .AddSkill("Быстрая атака")
+                .SetWeapon("Меч")
+                .SetArmor("Стальная броня")
+                .SetHelmet("Железный шлем")
+                .SetBoots("Кожаные сапоги");
         }
 
         public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
         {
-            return _characterBuilder.SetName(name)
+            return _characterBuilder
+                .SetName(name)
                 .SetLevel(level)
                 .SetClass(characterClass)
-                .SetIntelligence(10)
-                .SetMana(mana)
                 .SetStrenght(strenght)
-                .AddSkill("огненный взрыв")
-                .AddSkill("ярость");
+                .SetMana(mana)
+                .SetAppirance("Особый герой")
+                .AddSkill("Огненный взрыв");
+        }
 
+       
+        public ICharacterBuilder CreateNPC(string name, string appirance)
+        {
+            return _characterBuilder
+                .SetName(name)
+                .SetClass(CharacterClass.Priest)
+                .SetLevel(1)
+                .SetAppirance(appirance)
+                .AddSkill("Исцеление")
+                .SetWeapon("Посох")
+                .SetArmor("Одеяние")
+                .AddAccessory("Амулет света");
         }
     }
 }
