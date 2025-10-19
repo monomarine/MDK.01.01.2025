@@ -1,4 +1,10 @@
-﻿namespace Builder
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Builder
 {
     internal class CharacterBuilder : ICharacterBuilder
     {
@@ -14,7 +20,6 @@
             return this;
         }
 
-        public ICharacterBuilder AddSkill(string skill)
         {
             _character.Skills.Add(skill);
             return this;
@@ -77,22 +82,6 @@
         }
 
         public ICharacterBuilder SetMana(int value)
-        {
-            _character.Mana = Math.Clamp(value, 0, 100);
-            return this;
-        }
-
-        public ICharacterBuilder SetStrength(int value)
-        {
-            _character.Strength = Math.Clamp(value, 0, 10);
-            return this;
-        }
-
-        public ICharacterBuilder Setup(string name, CharacterClass characterClass)
-        {
-            _character.Name = name;
-            _character.Class = characterClass;
-            switch (characterClass)
             {
                 case CharacterClass.Warrior:
                     SetStrength(10);
@@ -138,6 +127,12 @@
                     SetAppearance("Отсутствует");
                     break;
             }
+            _character.Dexterity = _character.Level * 5;
+            _character.Strength = _character.Level * 3;
+            _character.Mana = _character.Level / 2;
+            _character.Intelligence = _character.Level / 2;
+            _character.Health += _character.Level / 2;
+
             return this;
         }
 

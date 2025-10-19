@@ -42,5 +42,6 @@ namespace Builder
             return characterBuilder.Build();
         }
 
+        }
     }
 }

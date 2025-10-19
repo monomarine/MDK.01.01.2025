@@ -14,7 +14,7 @@ namespace AbstractFactory
         private string _trackNumber;
         private double _distance;
 
-        public OrderProcessor(IDeliveryFactory factory, double distance)
+        public OrderProcessor(IDeliveryFactory factory)
         {
             _tracking = factory.GetTracking();
             _packing = factory.GetPacking();
