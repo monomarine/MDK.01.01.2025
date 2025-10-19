@@ -14,27 +14,56 @@ namespace Builder
             _characterBuilder = builder;
         }
 
-        public ICharacterBuilder CreateWarrior(string name, int level)
+        public GameCharacter CreateWarrior(string name, int level)
         {
-            return _characterBuilder.SetName(name)
+            _characterBuilder.SetName(name)
                 .SetLevel(level)
                 .SetAppirance("обыччный воин из деревни")
                 .AddSkill("сильный удар")
-                .AddSkill("быбстрый бег")
-                .SetClass(CharacterClass.Warrior);
+                .AddSkill("быстрый бег")
+                .SetClass(CharacterClass.Warrior)
+                .SetStats(); 
+
+            _characterBuilder.Validate();
+            return _characterBuilder.GetResult();
+
         }
 
-        public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
+        public GameCharacter CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
         {
-            return _characterBuilder.SetName(name)
+            _characterBuilder.SetName(name)
                 .SetLevel(level)
                 .SetClass(characterClass)
                 .SetIntelligence(10)
                 .SetMana(mana)
                 .SetStrenght(strenght)
                 .AddSkill("огненный взрыв")
-                .AddSkill("ярость");
+                .AddSkill("ярость")
+                .SetStats();
 
+            _characterBuilder.Validate();
+
+            return _characterBuilder.GetResult();
+        }
+        public GameCharacter CreateNPCGuard(string name, int level)
+        {
+            _characterBuilder.SetName(name)
+                .SetLevel(level)
+                .SetClass(CharacterClass.Warrior)
+                .SetAppirance("Крепкий, суровый стражник в полном доспехе")
+                .AddSkill("Остановить и обыскать")
+                .AddSkill("Удар щитом")
+                .SetWeapon("Длинный меч стражника")
+                .SetArmor("Кольчужный доспех")
+                .SetHelmet("Стальной шлем")
+                .SetBoots("Тяжелые сапоги")
+                .AddAccessory("Городской герб")
+                .SetStats();
+
+            _characterBuilder.Validate();
+            return _characterBuilder.GetResult();
         }
     }
 }
+
+

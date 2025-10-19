@@ -11,9 +11,9 @@ namespace Builder
         private GameCharacter _character;
         public CharacterBuilder()
         {
-            Reset();
+            _character = new GameCharacter { Class = CharacterClass.None };
         }
-        public GameCharacter Reset()
+        public GameCharacter GetResult()
         {
             var resultCharacter = _character;
             _character = new GameCharacter();
@@ -123,12 +123,42 @@ namespace Builder
             _character.Strength = Math.Clamp(strenght, 0, 10);
             return this;
         }
+      
+        public ICharacterBuilder SetWeapon(string weaponName)
+        {
+            _character.Equipment.Weapon = weaponName;
+            return this;
+        }
+
+        public ICharacterBuilder SetArmor(string armorName)
+        {
+            _character.Equipment.Armor = armorName;
+            return this;
+        }
+
+        public ICharacterBuilder SetHelmet(string helmetName)
+        {
+            _character.Equipment.Helmet = helmetName;
+            return this;
+        }
+
+        public ICharacterBuilder SetBoots(string bootsName)
+        {
+            _character.Equipment.Boots = bootsName;
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessory(string accessoryName)
+        {
+            _character.Equipment.Accessories.Add(accessoryName);
+            return this;
+        }
 
         public void Validate()
         {
             if (string.IsNullOrEmpty(_character.Name))
                 throw new InvalidOperationException("нет имени персонажа");
-            if (_character.Class == default(CharacterClass))
+            if (_character.Class == CharacterClass.None)
                 throw new InvalidOperationException("не установлен класс персонажа");
         }
 
