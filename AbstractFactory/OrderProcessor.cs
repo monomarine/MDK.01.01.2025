@@ -30,11 +30,11 @@ namespace AbstractFactory
             string result = $"\n----------Информация по заказу------------" +
                 $"\nстоимость транспортировки: {transportCost}" +
                 $"\nстоимость упаковки: {pakingCostr}" +
-                $"\nтип транспорта {_transport.Type}" +
-                $"\nвид упаковки {_packing.Name}" +
-                $"\nпримерное время доставки {deliveryTime}" +
+                $"\nтип транспорта: {_transport.Type}" +
+                $"\nвид упаковки: {_packing.Name}" +
+                $"\nпримерное время доставки: {deliveryTime}" +
                 $"\n-----------------" +
-                $"\nобщая стоимость {transportCost + pakingCostr}" +
+                $"\nобщая стоимость: {transportCost + pakingCostr}" +
                 $"\nотследить: {_tracking.GetTrackLinq(_trackNumber)}";
 
             return result;

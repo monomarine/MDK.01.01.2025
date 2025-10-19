@@ -19,6 +19,15 @@ namespace Builder
         ICharacterBuilder AddSkill(string skillName);
         ICharacterBuilder SetAppirance(string appirance);
         ICharacterBuilder SetStats();
+
+        // НОВЫЕ МЕТОДЫ ДЛЯ ЭКИПИРОВКИ
+
+        ICharacterBuilder SetWeapon(string weapon);
+        ICharacterBuilder SetArmor(string armor);
+        ICharacterBuilder SetHelmet(string helmet);
+        ICharacterBuilder SetBoots(string boots);
+        ICharacterBuilder AddAccessory(string accessory);
+
         void Validate();
     }
 }

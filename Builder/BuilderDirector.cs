@@ -36,5 +36,19 @@ namespace Builder
                 .AddSkill("ярость");
 
         }
+
+        public ICharacterBuilder CreateNPC(string name, string appearance)
+        {
+            return _characterBuilder
+                .SetName(name)
+                .SetAppirance(appearance)
+                .SetClass(CharacterClass.Priest)
+                .SetLevel(1)
+                .AddSkill("говорить")
+                .AddSkill("торговаться")
+                .SetWeapon("Посох торговца")
+                .SetArmor("Мантия")
+                .AddAccessory("Сумка с товарами");
+        }
     }
 }
