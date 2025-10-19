@@ -19,6 +19,8 @@ namespace Builder
         ICharacterBuilder AddSkill(string skillName);
         ICharacterBuilder SetAppirance(string appirance);
         ICharacterBuilder SetStats();
+        ICharacterBuilder SetEquipment(Action<EquipmentBuilder> equipment);
         void Validate();
+        GameCharacter Build();
     }
 }

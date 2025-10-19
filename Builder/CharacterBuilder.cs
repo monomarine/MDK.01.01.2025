@@ -13,11 +13,25 @@ namespace Builder
         {
             Reset();
         }
-        public GameCharacter Reset()
+        public void Reset()
         {
-            var resultCharacter = _character;
             _character = new GameCharacter();
-            return resultCharacter;
+        }
+
+        public GameCharacter Build()
+        {
+            Validate();
+            var result = _character;
+            Reset(); 
+            return result;
+        }
+
+        public ICharacterBuilder SetEquipment(Action<EquipmentBuilder> equipmentConfig)
+        {
+            var equipmentBuilder = new EquipmentBuilder();
+            equipmentConfig(equipmentBuilder);
+            _character.Equipment = equipmentBuilder.Build();
+            return this;
         }
 
         public ICharacterBuilder AddSkill(string skillName)
@@ -128,8 +142,7 @@ namespace Builder
         {
             if (string.IsNullOrEmpty(_character.Name))
                 throw new InvalidOperationException("нет имени персонажа");
-            if (_character.Class == default(CharacterClass))
-                throw new InvalidOperationException("не установлен класс персонажа");
+            
         }
 
         public ICharacterBuilder SetMana(int mana)
@@ -137,5 +150,7 @@ namespace Builder
             _character.Mana = mana;
             return this;
         }
+
+        
     }
 }

@@ -8,7 +8,7 @@ namespace AbstractFactory
 {
     internal class ExpressPacking : IPacking
     {
-        public string Name { get; } = "тонна пупырки";
+        public string Name { get; } = "Тонна пупырки";
 
         public decimal GetPackCost()
         {
