@@ -36,5 +36,25 @@ namespace Builder
                 .AddSkill("ярость");
 
         }
+
+        public ICharacterBuilder CreateNPC(string name, string role)
+        {
+            return _characterBuilder.SetName(name)
+                .SetLevel(1)
+                .SetAppirance($"обычный {role.ToLower()}")
+                .SetClass(CharacterClass.Warrior)
+                .SetHealth(50)
+                .SetMana(0)
+                .SetStrenght(5)
+                .SetIntelligence(5)
+                .SetDexterity(5)
+                .AddSkill("хитрость")
+                .AddSkill("скрытность")
+                .SetWeapon("железный меч")
+                .SetArmor("железная броня")
+                .SetHelmet("железный шлем")
+                .SetBoots("железные ботинки")
+                .AddAccessory("кувалда");
+        }
     }
 }

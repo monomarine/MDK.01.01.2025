@@ -137,5 +137,35 @@ namespace Builder
             _character.Mana = mana;
             return this;
         }
+
+        public ICharacterBuilder SetWeapon(string weapon)
+        {
+            _character.Equipment.Weapon = weapon;
+            return this;
+        }
+
+        public ICharacterBuilder SetArmor(string armor)
+        {
+            _character.Equipment.Armor = armor;
+            return this;
+        }
+
+        public ICharacterBuilder SetHelmet(string helmet)
+        {
+            _character.Equipment.Helmet = helmet;
+            return this;
+        }
+
+        public ICharacterBuilder SetBoots(string boots)
+        {
+            _character.Equipment.Boots = boots;
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessory(string accessory)
+        {
+            _character.Equipment.Accessories.Add(accessory);
+            return this;
+        }
     }
 }
