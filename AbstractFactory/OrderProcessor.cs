@@ -12,6 +12,7 @@ namespace AbstractFactory
         private IPacking _packing;
         private ITransport _transport;
         private string _trackNumber;
+        private double _distance;
 
         public OrderProcessor(IDeliveryFactory factory)
         {
@@ -19,25 +20,19 @@ namespace AbstractFactory
             _packing = factory.GetPacking();
             _transport = factory.GetTransport();
             _trackNumber = _tracking.GenerateTrackNumber();
+            _distance = distance;
         }
 
-        public string OrderProcess(double distance)
+        public override string ToString()
         {
-            var transportCost = _transport.GetTransportCost(distance);
-            var deliveryTime = _transport.GetTransportTime(distance);
-            var pakingCostr = _packing.GetPackCost();
-
-            string result = $"\n----------Информация по заказу------------" +
-                $"\nстоимость транспортировки: {transportCost}" +
-                $"\nстоимость упаковки: {pakingCostr}" +
-                $"\nтип транспорта {_transport.Type}" +
-                $"\nвид упаковки {_packing.Name}" +
-                $"\nпримерное время доставки {deliveryTime}" +
-                $"\n-----------------" +
-                $"\nобщая стоимость {transportCost + pakingCostr}" +
-                $"\nотследить: {_tracking.GetTrackLinq(_trackNumber)}";
-
-            return result;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"=====Информация по заказу======");
+            sb.AppendLine($"Номер: {_trackNumber}");
+            sb.AppendLine($"Ссылка для отслеживания: {_tracking.GetTrackLinq(_trackNumber)}");
+            sb.AppendLine($"Цена упаковки: {_packing.GetPackCost()}");
+            sb.AppendLine($"Цена транспортировки: {_transport.GetTransportCost(_distance)}");
+            sb.AppendLine($"Время доставки: {_transport.GetTransportTime(_distance)}");
+            return sb.ToString();
         }
     }
 }

@@ -8,32 +8,39 @@ namespace Builder
 {
     internal class BuilderDirector
     {
-        private readonly ICharacterBuilder _characterBuilder;
-        public BuilderDirector(ICharacterBuilder builder)
+        public GameCharacter BuildWarrior(string name)
         {
-            _characterBuilder = builder;
+            CharacterBuilder characterBuilder = new CharacterBuilder();
+            characterBuilder.Setup(name, CharacterClass.Warrior)
+                .SetArmor("Железная броня")
+                .SetHelmet("Железный шлем")
+                .SetBoots("Железные ботинки")
+                .SetWeapon("Железный меч")
+                .AddSkill("Сильный удар");
+            return characterBuilder.Build();
         }
 
-        public ICharacterBuilder CreateWarrior(string name, int level)
+        public GameCharacter BuildCustomCharacter(string name, int level, CharacterClass characterClass, string armor = "Нет", string helmet = "Нет", string boots = "Нет", string weapon = "Нет")
         {
-            return _characterBuilder.SetName(name)
+            CharacterBuilder characterBuilder = new CharacterBuilder();
+            characterBuilder.Setup(name, characterClass)
                 .SetLevel(level)
-                .SetAppirance("обыччный воин из деревни")
-                .AddSkill("сильный удар")
-                .AddSkill("быбстрый бег")
-                .SetClass(CharacterClass.Warrior);
+                .SetArmor(armor)
+                .SetHelmet(helmet)
+                .SetBoots(boots)
+                .SetWeapon(weapon);
+            return characterBuilder.Build();
         }
 
-        public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
+        public GameCharacter BuildNPC(string name)
         {
-            return _characterBuilder.SetName(name)
-                .SetLevel(level)
-                .SetClass(characterClass)
-                .SetIntelligence(10)
-                .SetMana(mana)
-                .SetStrenght(strenght)
-                .AddSkill("огненный взрыв")
-                .AddSkill("ярость");
+            CharacterBuilder characterBuilder = new CharacterBuilder();
+            characterBuilder.Setup(name, CharacterClass.NPC)
+                .SetLevel(0)
+                .SetAppearance("Житель")
+                .AddSkill("Разговор");
+            return characterBuilder.Build();
+        }
 
         }
     }

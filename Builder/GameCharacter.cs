@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Builder
 {
-    public enum CharacterClass { Warrior, Mage, Archer, Rogue, Priest }
+    public enum CharacterClass { Warrior, Mage, Archer, Rogue, Priest, NPC }
     internal class GameCharacter
     {
         public string Name { get; set; }

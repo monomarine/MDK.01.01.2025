@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 
 namespace Builder
 {
-    public interface ICharacterBuilder
+    internal interface ICharacterBuilder
     {
-        ICharacterBuilder SetName(string name);
-        ICharacterBuilder SetClass(CharacterClass characterClass);
-        ICharacterBuilder SetLevel(int level);
-        ICharacterBuilder SetHealth(int health);
-        ICharacterBuilder SetMana(int mana);
-        ICharacterBuilder SetStrenght(int strenght);
-        ICharacterBuilder SetIntelligence(int intelligance);
-        ICharacterBuilder SetDexterity(int dexterity);
-        ICharacterBuilder AddSkill(string skillName);
-        ICharacterBuilder SetAppirance(string appirance);
-        ICharacterBuilder SetStats();
-        void Validate();
+        public ICharacterBuilder SetStrength(int value);
+        public ICharacterBuilder SetIntelligence(int value);
+        public ICharacterBuilder SetDexterity(int value);
+        public ICharacterBuilder SetMana(int value);
+        public ICharacterBuilder SetHealth(int value);
+        public ICharacterBuilder SetLevel(int value);
+        public ICharacterBuilder SetAppearance(string appearance);
+        public ICharacterBuilder AddSkill(string skill);
+        public ICharacterBuilder SetArmor(string value);
+        public ICharacterBuilder SetHelmet(string value);
+        public ICharacterBuilder SetBoots(string value);
+        public ICharacterBuilder SetWeapon(string value);
+        public ICharacterBuilder AddAccessory(string value);
+        public ICharacterBuilder Setup(string name, CharacterClass characterClass);
+        public GameCharacter Build();
+        public bool Validate();
     }
 }
