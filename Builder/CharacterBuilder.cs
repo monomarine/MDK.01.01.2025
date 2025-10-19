@@ -13,6 +13,11 @@ namespace Builder
         {
             Reset();
         }
+        public GameCharacter GetCharacter()
+        {
+            return _character;
+        }
+
         public GameCharacter Reset()
         {
             var resultCharacter = _character;
@@ -135,6 +140,38 @@ namespace Builder
         public ICharacterBuilder SetMana(int mana)
         {
             _character.Mana = mana;
+            return this;
+        }
+        //новые
+
+        public ICharacterBuilder SetWeapon(string weapon)
+        {
+            _character.Equipment.Weapon = weapon;
+            return this;
+        }
+
+        public ICharacterBuilder SetArmor(string armor)
+        {
+            _character.Equipment.Armor = armor;
+            return this;
+        }
+
+        public ICharacterBuilder SetHelmet(string helmet)
+        {
+            _character.Equipment.Helmet = helmet;
+            return this;
+        }
+
+        public ICharacterBuilder SetBoots(string boots)
+        {
+            _character.Equipment.Boots = boots;
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessory(string accessory)
+        {
+            if (!_character.Equipment.Accessories.Contains(accessory))
+                _character.Equipment.Accessories.Add(accessory);
             return this;
         }
     }
