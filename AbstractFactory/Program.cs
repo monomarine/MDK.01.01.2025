@@ -4,9 +4,16 @@
     {
         static void Main(string[] args)
         {
-            OrderProcessor orderProcessor = new OrderProcessor(new ExpressDeliveryFactory());
+            double distance = 1500; // расстояние для заказа 
 
-            Console.WriteLine(orderProcessor.OrderProcess(1500));
+            Console.WriteLine("=== ТЕСТИРОВАНИЕ ЭКСПРЕСС-ДОСТАВКИ ===");
+            OrderProcessor expressProcessor = new OrderProcessor(new ExpressDeliveryFactory());
+            Console.WriteLine(expressProcessor.OrderProcess(distance));
+
+            Console.WriteLine("\n====================================\n");
+            Console.WriteLine("=== ТЕСТИРОВАНИЕ ЭКОНОМ-ДОСТАВКИ ===");
+            OrderProcessor economyProcessor = new OrderProcessor(new EconomyDeliveryFactory());
+            Console.WriteLine(economyProcessor.OrderProcess(distance));
         }
     }
 }

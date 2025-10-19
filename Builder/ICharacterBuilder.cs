@@ -19,6 +19,12 @@ namespace Builder
         ICharacterBuilder AddSkill(string skillName);
         ICharacterBuilder SetAppirance(string appirance);
         ICharacterBuilder SetStats();
+        ICharacterBuilder SetWeapon(string weaponName);
+        ICharacterBuilder SetArmor(string armorName);
+        ICharacterBuilder SetHelmet(string helmetName);
+        ICharacterBuilder SetBoots(string bootsName);
+        ICharacterBuilder AddAccessory(string accessoryName);
         void Validate();
+        GameCharacter GetResult();
     }
 }
