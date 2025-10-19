@@ -7,6 +7,11 @@
             OrderProcessor orderProcessor = new OrderProcessor(new ExpressDeliveryFactory());
 
             Console.WriteLine(orderProcessor.OrderProcess(1500));
+
+            var economyFactory = new EconomyFactory();
+            var economyProcessor = new OrderProcessor(economyFactory);
+
+            Console.WriteLine(economyProcessor.OrderProcess(300));
         }
     }
 }

@@ -18,10 +18,17 @@ namespace Builder
         {
             return _characterBuilder.SetName(name)
                 .SetLevel(level)
-                .SetAppirance("обыччный воин из деревни")
-                .AddSkill("сильный удар")
-                .AddSkill("быбстрый бег")
-                .SetClass(CharacterClass.Warrior);
+                .SetAppirance("Обычный воин из деревни")
+                .AddSkill("Сильный удар")
+                .AddSkill("Быстрый бег")
+                .SetClass(CharacterClass.Warrior)
+                .SetEquipment(equipment => equipment
+                .SetWeapon("Деревянный меч")
+                .SetArmor("Нет")
+                .SetHelmet("Шапка мономах")
+                .SetBoots("Кожаные сапоги")
+                .AddAccessory("Икона"));
+
         }
 
         public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
@@ -32,9 +39,29 @@ namespace Builder
                 .SetIntelligence(10)
                 .SetMana(mana)
                 .SetStrenght(strenght)
-                .AddSkill("огненный взрыв")
-                .AddSkill("ярость");
+                .AddSkill("Огненный взрыв")
+                .AddSkill("Ярость")
+                .SetEquipment(equipment => equipment
+                .SetWeapon("Посох мага")
+                .SetArmor("Шляпа лягушки")
+                .SetHelmet("Нет")
+                .SetBoots("Шелковые черевички")
+                .AddAccessory("Кольцо 4 королевств"));
 
+
+        }
+
+        public ICharacterBuilder CreateNPC(string name)
+        {
+            return _characterBuilder.SetName(name)
+                .SetAppirance($"Стандартная внешность")
+                .AddSkill("Знание местности")
+                .AddSkill("Болтовня")
+                .SetEquipment(equipment => equipment
+                .SetArmor("Простая одежда")
+                .SetHelmet("Нет")
+                .SetBoots("Рваные ботинки")
+                .AddAccessory("Нет"));
         }
     }
 }
