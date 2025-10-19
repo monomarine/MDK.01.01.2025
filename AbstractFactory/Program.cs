@@ -4,7 +4,11 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            OrderProcessor expressProcessor = new OrderProcessor(new ExpressDeliveryFactory(), 100);
+            OrderProcessor economProcessor = new OrderProcessor(new EconomDeliveryFactory(), 100);
+
+            Console.WriteLine(expressProcessor);
+            Console.WriteLine(economProcessor);
         }
     }
 }

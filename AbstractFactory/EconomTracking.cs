@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AbstractFactory
 {
-    internal class ExpressTracking : ITracking
+    internal class EconomTracking : ITracking
     {
         public string GenerateTrackNumber()
         {
@@ -20,7 +20,7 @@ namespace AbstractFactory
 
         public bool IsSMSnotification()
         {
-            return true;
+            return false;
         }
     }
 }
