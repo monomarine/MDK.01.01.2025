@@ -124,6 +124,37 @@ namespace Builder
             return this;
         }
 
+        public ICharacterBuilder Weapon(string weaponName)
+        {
+            _character.Equipment.Weapon = weaponName; 
+            return this;
+        }
+
+        public ICharacterBuilder Armor(string armorName)
+        {
+            _character.Equipment.Armor = armorName;
+            return this;
+        }
+
+        public ICharacterBuilder Helmet(string helmetName)
+        {
+            _character.Equipment.Helmet = helmetName;
+            return this;
+        }
+
+        public ICharacterBuilder Boots(string bootName)
+        {
+            _character.Equipment.Boots = bootName;
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessories(string accessoriesName)
+        {
+            if (!_character.Equipment.Accessories.Contains(accessoriesName))
+                _character.Equipment.Accessories.Add(accessoriesName);
+            return this;
+        }
+
         public void Validate()
         {
             if (string.IsNullOrEmpty(_character.Name))
