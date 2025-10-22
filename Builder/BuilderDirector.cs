@@ -36,5 +36,30 @@ namespace Builder
                 .AddSkill("ярость");
 
         }
+
+        public ICharacterBuilder CreateNPC(string name, int level, CharacterClass characterClass, Equipment equipment = null)
+        {
+            var builder = _characterBuilder.SetName(name)
+                .SetLevel(level)
+                .SetClass(characterClass)
+                .SetAppirance("Житель деревни")
+                .AddSkill("Торговля")
+                .AddSkill("Разговор");
+
+            if (equipment != null)
+            {
+                builder.SetEquipment(equipment);
+            }
+            else
+            {
+                builder.SetWeapon("Посох")
+                       .SetArmor("Простая одёжка")
+                       .SetHelmet("-")
+                       .SetBoots("Лапти")
+                       .AddAccessory("-");
+            }
+
+            return builder;
+        }
     }
 }
