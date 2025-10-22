@@ -8,10 +8,10 @@ namespace Builder
 {
     public class Equipment
     {
-        public string Weapon { get; set; } = "Нет";
-        public string Armor { get; set; } = "Нет";
-        public string Helmet { get; set; } = "Нет";
-        public string Boots { get; set; } = "Нет";
+        public string Weapon { get; set; }
+        public string Armor { get; set; }
+        public string Helmet { get; set; }
+        public string Boots { get; set; }
         public List<string> Accessories { get; set; }
 
         public Equipment()

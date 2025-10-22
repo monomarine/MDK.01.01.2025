@@ -24,7 +24,7 @@ namespace Builder
                 .SetClass(CharacterClass.Warrior);
         }
 
-        public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass)
+        public ICharacterBuilder CreateCustomCharacter(string name, int level, int strenght, int mana, CharacterClass characterClass, string weaponName, string armorName, string helmetName, string bootName)
         {
             return _characterBuilder.SetName(name)
                 .SetLevel(level)
@@ -33,8 +33,25 @@ namespace Builder
                 .SetMana(mana)
                 .SetStrenght(strenght)
                 .AddSkill("огненный взрыв")
-                .AddSkill("ярость");
+                .AddSkill("ярость")
+                .Weapon(weaponName)
+                .Armor(armorName)
+                .Helmet(helmetName)
+                .Boots(bootName);
 
+        }
+
+        public ICharacterBuilder CreateNPC(string name, CharacterClass npcClass, string role)
+        {
+            return _characterBuilder.SetName(name)
+                .SetClass(npcClass)  
+                .SetLevel(3)
+                .SetAppirance(role)
+                .AddSkill("Базовый навык оружия")
+                .Weapon("Простое оружие")
+                .Armor("Простая броня")
+                .Boots("Простые сапоги")
+                .AddAccessories("Нет");
         }
     }
 }
