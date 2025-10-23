@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,6 +109,13 @@ namespace Builder
                     _character.Strength = 8;
                     _character.Mana = 150;
                     break;
+                case CharacterClass.Trader:
+                    _character.Dexterity = 4;
+                    _character.Health = 40;
+                    _character.Intelligence = 5;
+                    _character.Strength = 2;
+                    _character.Mana = 0;
+                    break;
             }
             _character.Dexterity = _character.Level * 5;
             _character.Strength = _character.Level * 3;
@@ -136,6 +144,49 @@ namespace Builder
         {
             _character.Mana = mana;
             return this;
+        }
+
+        public ICharacterBuilder SetWeapon(string weapon)
+        {
+            _character.Equipment.Weapon = weapon;
+            return this;
+        }
+
+        public ICharacterBuilder SetArmor(string armor)
+        {
+            _character.Equipment.Armor = armor;
+            return this;
+        }
+
+        public ICharacterBuilder SetHelmet(string helmet)
+        {
+            _character.Equipment.Helmet = helmet;
+            return this;
+        }
+
+        public ICharacterBuilder SetBoots(string boots)
+        {
+            _character.Equipment.Boots = boots;
+            return this;
+        }
+
+        public ICharacterBuilder AddAccessories(string accessory)
+        {
+            if(!_character.Equipment.Accessories.Contains(accessory))
+                _character.Equipment.Accessories.Add(accessory);
+            return this;
+        }
+
+        public ICharacterBuilder RemoveAccessories(string accessory)
+        {
+            if (_character.Equipment.Accessories.Contains(accessory))
+                _character.Equipment.Accessories.Remove(accessory);
+            return this;
+        }
+
+        public void Display()
+        {
+            _character.Display();
         }
     }
 }
