@@ -8,15 +8,15 @@ namespace Graphs
 {
     internal class Node
     {
-        public string Value { get; set; }
-        public List<Node> Neighbors { get; set; }
+        public Student Student { get; set; }
+        public List<Node> Friends { get; set; }
 
-        public Node(string value)
+        public Node(Student student)
         {
-            Value = value;  
-            Neighbors = new List<Node>();
+            Student = student;
+            Friends = new List<Node>();
         }
 
-        public override string ToString() => Value;
+        public override string ToString() => Student.ToString();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Builder
 {
-    public enum CharacterClass { Warrior, Mage, Archer, Rogue, Priest }
+    public enum CharacterClass { Warrior, Mage, Archer, Rogue, Priest, Trader }
     internal class GameCharacter
     {
         public string Name { get; set; }
@@ -30,7 +30,7 @@ namespace Builder
         public void Display()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("ИГРОВОЙ ПЕРСОНАЖ");
+            Console.WriteLine(Class == CharacterClass.Trader ? "НЕ ИГРОВОЙ ПЕРСОНАЖ" : "ИГРОВОЙ ПЕРСОНАЖ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"Имя: {Name}");
             Console.WriteLine($"Класс: {Class}");

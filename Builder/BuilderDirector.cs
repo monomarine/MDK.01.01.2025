@@ -36,5 +36,13 @@ namespace Builder
                 .AddSkill("ярость");
 
         }
+
+        public ICharacterBuilder CreaterNPC(string name)
+        {
+            return _characterBuilder.SetName(name)
+                .SetHealth(50)
+                .SetAppirance("Ничем не примечательный торговец")
+                .SetClass(CharacterClass.Trader);
+        }
     }
 }
